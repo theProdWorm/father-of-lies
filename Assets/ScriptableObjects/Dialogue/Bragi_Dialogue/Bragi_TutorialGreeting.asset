@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: Bragi_TutorialGreeting
+  m_EditorClassIdentifier: 
+  Repeatable: 0
+  Lines:
+  - Text: "The Son of Lies watches his own image change in the water\u2019s reflection,
+      his lycan body becoming smaller until he looks like the younger sister to the
+      Queen of Helheim."
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Where is your voice coming from, I heard you before?
+    Speaker: {fileID: 11400000, guid: 4f97ef8596ffbe84c8329bcee3fa66b3, type: 2}
+  - Text: Ah, the Son of Lies can indeed hear me. I am Bragi, lord of poets and skalds,
+      as well as the man who will tell your tale, little Lie.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: ...
+    Speaker: {fileID: 11400000, guid: 4f97ef8596ffbe84c8329bcee3fa66b3, type: 2}
+  - Text: The Son of Lies investigates his new body in an attempt to discover who
+      he is-
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: "I do not believe the epithet of \u2018Son of Lies\u2019 fits this body."
+    Speaker: {fileID: 11400000, guid: 4f97ef8596ffbe84c8329bcee3fa66b3, type: 2}
+  - Text: Would you prefer Daughter of Lies, little Lie?
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: "I\u2026 I do not know."
+    Speaker: {fileID: 11400000, guid: 4f97ef8596ffbe84c8329bcee3fa66b3, type: 2}
+  IsVoiced: 0
+  VoiceEventName: 
+  VoiceParameterName: 
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

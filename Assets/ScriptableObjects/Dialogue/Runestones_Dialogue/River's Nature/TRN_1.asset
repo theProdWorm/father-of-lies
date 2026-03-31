@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: TRN_1
+  m_EditorClassIdentifier: 
+  Repeatable: 1
+  Lines:
+  - Text: 'This runestone contains the start of a story. It reads as follows:'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: Upstream, the hunters called the river he. They said his current was strong,
+      that he carved valleys and broke stone. They gave him offerings of iron and
+      of bone, and spoke to him as they would a brother.
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

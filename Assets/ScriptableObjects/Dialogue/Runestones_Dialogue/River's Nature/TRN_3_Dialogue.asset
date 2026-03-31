@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: TRN_3_Dialogue
+  m_EditorClassIdentifier: 
+  Repeatable: 0
+  Lines:
+  - Text: 'This runestone contains the ending of a story. It reads as follows:'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: "Lawspeakers quarreled over the truth of the matter, as men asked \u201Cwhere
+      does he end, and where does she begin.\u201D A man climbed to the river\u2019s
+      birth, finding there no name held, neither axe nor cradle, neither brother
+      or mother, only water. For the river was as the river was."
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: Bragi, I found a story of a river and mortals who debated its gender, do
+      you know the one?
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: Ah, I just might, little Lie. It is a tale I have recorded myself, after
+      all.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Can you tell me what it means?
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: You have yet much to learn, little Lie! A story means what a story means.
+      Tell me, what do you think it means?
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: It seems to be about how people are too quick to apply their understanding
+      on natural phenomena like rivers.
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: "That is the surface level, yes, but it\u2019s also about everything else!
+      Look deeper inside yourself, about what you learned from it."
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: "I\u2026 I think I am the river, and that I am not either upstream or downstream,
+      but both? Or maybe neither? Is that what you\u2019re trying to tell me?"
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: Little Lie, I told you the story carries the meaning you find in it, so
+      that is your meaning.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

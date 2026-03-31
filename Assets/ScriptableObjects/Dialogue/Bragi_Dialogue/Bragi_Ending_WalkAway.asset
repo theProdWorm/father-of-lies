@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: Bragi_Ending_WalkAway
+  m_EditorClassIdentifier: 
+  Repeatable: 0
+  Lines:
+  - Text: Such ends our telling of the Child of Lies, but it is not the end of their
+      tale.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: I can carry a name of my own, not Wolf or Sorceress.
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: Born of blood and poison, refined by the challenges the all-father framed.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: "I like Lugva, it\u2019s fitting for all of me, and feels meaningful enough."
+    Speaker: {fileID: 11400000, guid: 4f97ef8596ffbe84c8329bcee3fa66b3, type: 2}
+  - Text: All the while, the nurturing wife mourns as her beloved writhes in tortured
+      pain.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: "I like Lugva, it\u2019s fitting for all of me, and feels meaningful enough."
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: "They\u2019ll have a long life, learning who they wish to be, discovering
+      the stories they have to tell. "
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: 'Maybe they shall journey into Helheim to meet their sister, or perhaps
+      they shall travel to feel the fires of Muspelheim. '
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: What a beautiful world it is, and what a time it is to discover yourself.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  IsVoiced: 0
+  VoiceEventName: 
+  VoiceParameterName: 
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

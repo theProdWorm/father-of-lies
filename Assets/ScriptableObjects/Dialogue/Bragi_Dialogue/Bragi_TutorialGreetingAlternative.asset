@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: Bragi_TutorialGreetingAlternative
+  m_EditorClassIdentifier: 
+  Repeatable: 0
+  Lines:
+  - Text: The Son of Lies shifts from like flowing water, appearing one moment as
+      the rampaging wolf and the other as the little sister of the Queen of Helheim.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Who is speaking?
+    Speaker: {fileID: 11400000, guid: 4f97ef8596ffbe84c8329bcee3fa66b3, type: 2}
+  - Text: Ah, so the Son of Lies can indeed hear me.  I am Bragi, lord of poets and
+      skalds, as well as the man who will tell your tale, little Lie.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: My story? Can you tell me what my story is?
+    Speaker: {fileID: 11400000, guid: 4f97ef8596ffbe84c8329bcee3fa66b3, type: 2}
+  - Text: Your story is predetermined as such, but I have a few estimates. Come meet
+      me, and perhaps I shall tell you, Son of Lies.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: "I do not believe \u2018Son of Lies\u2019 fully encompasses both my forms."
+    Speaker: {fileID: 11400000, guid: 4f97ef8596ffbe84c8329bcee3fa66b3, type: 2}
+  - Text: Would you prefer Daughter of Lies in your other form? Or Child of Lies
+      in either one?
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: I will have to think about that.
+    Speaker: {fileID: 11400000, guid: 4f97ef8596ffbe84c8329bcee3fa66b3, type: 2}
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

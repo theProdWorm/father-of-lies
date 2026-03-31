@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: SotS_1
+  m_EditorClassIdentifier: 
+  Repeatable: 1
+  Lines:
+  - Text: 'This runestone contains the start of a story. It reads as follows:'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: "One winter deep in a Midgard field,\r\nA nameless warrior bore his shield.\r\nNo
+      saga marked his father\u2019s name,\r\nNo skald yet shaped his path to fame."
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: 'The ground was cold, the sky was torn,
+
+      The ravens circled, battle-worn.
+
+      His
+      arm grew numb, his breath grew slow,
+
+      His blood ran hot upon the snow.'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

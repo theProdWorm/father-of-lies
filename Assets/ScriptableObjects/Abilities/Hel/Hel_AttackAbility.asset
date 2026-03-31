@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a339d3ecfd147ad8b0481484e1356c5, type: 3}
+  m_Name: Hel_AttackAbility
+  m_EditorClassIdentifier: 
+  AttackPrefab: {fileID: 477759728259082672, guid: 93b79fb79f9fd5d44817db44c6b07df1, type: 3}
+  MaxCharges: 1
+  RechargeTime: 0.2
+  SimultaneousRecharge: 1
+  RequireMaxCharges: 0
+  Burst: 0
+  BurstDelay: 0
+  SpreadAngle: 0

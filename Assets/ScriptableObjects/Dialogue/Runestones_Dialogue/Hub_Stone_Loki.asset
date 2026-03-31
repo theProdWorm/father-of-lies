@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: Hub_Stone_Loki
+  m_EditorClassIdentifier: 
+  Repeatable: 1
+  Lines:
+  - Text: This runestone contains an explanation of where you are.
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: 'In a veiled grove of Vanaheim, Loki lies here in fetters forged by Odin.
+
+'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: An act of vengeance, the giantess Skadi fixed a serpent above him; faithful
+      Sigyn catches the falling venom.
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  IsVoiced: 0
+  VoiceEventName: 
+  VoiceParameterName: 
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

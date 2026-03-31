@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: MoB_1
+  m_EditorClassIdentifier: 
+  Repeatable: 1
+  Lines:
+  - Text: 'This runestone contains the start of a story. It reads as follows:'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: "Beloved children three, of the trickster god were they.\r\nThe all-father
+      saw them play, the future they would bring.\r\nThe wolf that eats the sun,
+      the snake of thunder\u2019s decay.\r\nCast out for crimes uncommitted, for
+      futures yet to sing."
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: 'Chained with impossibility, the great beast quelling.
+
+      Cast to
+      the cold-black ocean, the serpent left to grow.
+
+      The last sister fair,
+      given death for dwelling.
+
+      Mistress of the fallen, crowned in dusk and
+      snow.'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: What father would not remember? What god would not take heed?
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

@@ -1,0 +1,304 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1077388190419128548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2042123748317858933}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2042123748317858933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077388190419128548}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 52.66942, y: -37.74656, z: -26.246817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4241344459473296564}
+  - {fileID: 5303672740720636942}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5220538739444989524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5303672740720636942}
+  - component: {fileID: 2563181139619553170}
+  m_Layer: 0
+  m_Name: Music Starter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5303672740720636942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5220538739444989524}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -52.66942, y: 37.74656, z: 26.246817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2042123748317858933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2563181139619553170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5220538739444989524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2934420960477c34e91f3f8da8f2ce6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AwakeCalled:
+    m_PersistentCalls:
+      m_Calls: []
+  StartCalled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3576573568654590172}
+        m_TargetAssemblyTypeName: Audio.FMODEvents, Assembly-CSharp
+        m_MethodName: SetNextPosition
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: event:/Anton/Musik/Loops/Combat/Combat2
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3576573568654590172}
+        m_TargetAssemblyTypeName: Audio.FMODEvents, Assembly-CSharp
+        m_MethodName: PlayEvent
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: event:/Anton/Musik/Loops/Playlist Ambience-Combat/Playlist
+            Combat-Ambience
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnEnableCalled:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &5454357883030850100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4241344459473296564}
+  - component: {fileID: 3576573568654590172}
+  m_Layer: 0
+  m_Name: FMODEvents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4241344459473296564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454357883030850100}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -52.66942, y: 37.74656, z: 26.246817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2042123748317858933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3576573568654590172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454357883030850100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc735212b3709144999a8940cfa0f913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneTransition:
+    Guid:
+      Data1: 1475726154
+      Data2: 1096865126
+      Data3: 1158756533
+      Data4: -567014313
+    Path: snapshot:/SceneTransition
+  _playerDeath:
+    Guid:
+      Data1: -2119688206
+      Data2: 1296770214
+      Data3: 989877895
+      Data4: 1250512727
+    Path: event:/Dave/SFX/Oneshots/Player/Player_Death
+  _playerHit:
+    Guid:
+      Data1: -906537756
+      Data2: 1107636956
+      Data3: -1452885334
+      Data4: 1871762703
+    Path: event:/Dave/SFX/Oneshots/Player/Player_Hit
+  _playerMovement:
+    Guid:
+      Data1: -2088756640
+      Data2: 1272925296
+      Data3: 461242266
+      Data4: 1946549125
+    Path: event:/Dave/SFX/Oneshots/Player/Player_Footstep
+  _playerDash:
+    Guid:
+      Data1: -2088142794
+      Data2: 1177407871
+      Data3: -1708367718
+      Data4: -2129430918
+    Path: event:/Dave/SFX/Oneshots/Player/Player dash
+  _playerFootstep:
+    Guid:
+      Data1: -935091957
+      Data2: 1156503607
+      Data3: 470235034
+      Data4: -964712347
+    Path: event:/Anton/SFX/Water_Splash
+  _playerAttack:
+    Guid:
+      Data1: 1611689188
+      Data2: 1100488490
+      Data3: 1702189464
+      Data4: 1251997565
+    Path: event:/Dave/SFX/Oneshots/Player/Pleyer_Meele
+  _playerSwitchIn:
+    Guid:
+      Data1: 1910674585
+      Data2: 1147805776
+      Data3: -1056617856
+      Data4: -1291989973
+    Path: event:/Dave/SFX/Oneshots/Player/Player_Shift
+  _helProjectileTravel:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  _helProjectileHit:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  _draugrDeath:
+    Guid:
+      Data1: -1463316889
+      Data2: 1095217611
+      Data3: 1762569116
+      Data4: 1256586946
+    Path: event:/Dave/SFX/Oneshots/Enemy/Drauger/Drauger_Noise
+  _draugrHit:
+    Guid:
+      Data1: -361769694
+      Data2: 1151813828
+      Data3: -1645366351
+      Data4: -492404780
+    Path: event:/Dave/SFX/Oneshots/Enemy/Drauger/Ennemy _Hit
+  _draugrSwing:
+    Guid:
+      Data1: 1207182682
+      Data2: 1320766343
+      Data3: -473311043
+      Data4: -2035746447
+    Path: event:/Dave/SFX/Oneshots/Enemy/Drauger/Drauger_Attack
+  _potionConsume:
+    Guid:
+      Data1: 1702124016
+      Data2: 1276269132
+      Data3: 752327062
+      Data4: -937834635
+    Path: event:/Dave/SFX/Oneshots/Misc/Heal
+  _runestoneInteract:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  _uiButtonClick:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  _uiButtonHover:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  _gameStart:
+    Guid:
+      Data1: 580557999
+      Data2: 1332938590
+      Data3: -620547664
+      Data4: -1221902902
+    Path: event:/Anton/Musik/Stingers/Round Start
+  _playlistMusic:
+    Guid:
+      Data1: -2059749349
+      Data2: 1162545903
+      Data3: -1276753770
+      Data4: 2019786182
+    Path: event:/Anton/Musik/Loops/Playlist Ambience-Combat/Playlist Combat-Ambience
+  _menuMusic:
+    Guid:
+      Data1: -870508944
+      Data2: 1233928325
+      Data3: -1742841702
+      Data4: 1673492967
+    Path: event:/Anton/Musik/Loops/Menu/Maintheme
+  _forest:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 

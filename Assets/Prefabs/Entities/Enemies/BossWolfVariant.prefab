@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6613584946794365178
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 709134253858999479, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_WalkableMask
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 952771235244239866, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: attackPrefab
+      value: 
+      objectReference: {fileID: 6175426701053642483, guid: a1b4ba90e78e94ceda8cc203f8301d39, type: 3}
+    - target: {fileID: 952771235244239866, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: canBeStaggered
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952771235244239866, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: EntityBaseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 79fe276b05d0b414982b86c48ddcc0de, type: 2}
+    - target: {fileID: 952771235244239866, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: ImmuneToStatusEffects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097279067342050150, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547739919307190125, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_Name
+      value: BossWolfVariant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880946719885454622, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.88556
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.88556
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5.88556
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535322883869481818, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7981152736141391101, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}
+      propertyPath: managedReferences[1031839009181532232].Name
+      value: ChargeSpeed
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 054bf27e0e26af74dbee2aa55812c924, type: 3}

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: Bragi_Ending_Death
+  m_EditorClassIdentifier: 
+  Repeatable: 0
+  Lines:
+  - Text: 'Oftentimes, stories have no audience. That is what I devoted my life to;
+      telling those stories. Our most beautiful lie was to be one of those stories. '
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: "I weep at the thought of what might come next. I reckon\u2026 the little
+      Lie enters the cave where the Father of Lies is trapped, and in the presence
+      of his saviour, the chains break."
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Thank you, newborn child, for saving us.
+    Speaker: {fileID: 11400000, guid: f4f22446a67128b49b991b6336d3fa9a, type: 2}
+  - Text: '*Unintelligible muttering.*'
+    Speaker: {fileID: 11400000, guid: 90eaea05785be1045b412500bff1817a, type: 2}
+  - Text: "Father, mother\u2026 I am back."
+    Speaker: {fileID: 11400000, guid: 571b31dc2b1c8774d8b12adde43e8a76, type: 2}
+  - Text: I wonder if the Lie would be accepted? Hmm... I do not believe Sigyn could
+      ever reject a child, even if she did not consider it hers.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Oh, child, I am sorry for having forced this trial upon you. We love you
+      so for the freedom you have brought us.
+    Speaker: {fileID: 11400000, guid: f4f22446a67128b49b991b6336d3fa9a, type: 2}
+  - Text: "You\u2026 you are not my Fenrir or my Hel. I see\u2026 you\u2026 child
+      of mine\u2026"
+    Speaker: {fileID: 11400000, guid: 90eaea05785be1045b412500bff1817a, type: 2}
+  - Text: Yes, I believe that is how this story goes on. Loki might take a while
+      to recover, but the family is united, in a sense.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Ah, if only I had not been killed. I would have loved to see Ragnarok too,
+      for the story that ends the world must be the most beautiful one.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: 'Little Lie, when the end comes by your hand, will you tell the world that
+      you set its demise into action, or will you try to defy unbreakable prophecy? '
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Thus, the third act begins.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  IsVoiced: 0
+  VoiceEventName: 
+  VoiceParameterName: 
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: Runestone_Dialogue_MurderOfBaldur
+  m_EditorClassIdentifier: 
+  Repeatable: 0
+  Lines:
+  - Text: 'This runestone contains a story. It reads as follows:'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: "Beloved children three, of the trickster god were they.\r\nThe all-father
+      saw them play, the future they would bring.\r\nThe wolf that eats the sun,
+      the snake of thunder\u2019s decay.\r\nCast out for crimes uncommitted, for
+      futures yet to sing."
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: 'Chained with impossibility, the great beast quelling.
+
+      Cast to the
+      cold-black ocean, the serpent left to grow.
+
+      The last sister fair, given
+      death for dwelling.
+
+      Mistress of the fallen, crowned in dusk and snow.'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: What father would not remember? What god would not take heed?
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: 'Then Baldur dreamed of dying; bright Baldur, beloved of all.
+
+      So
+      fair all things forget their thirst for blood.
+
+      The bright god fell,
+      and all of Asgard looked on in appall.
+
+      And the Father of Lies laughed
+      right where he stood.'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: 'Was it hatred for the shining, envy of the adored?
+
+      Was it grief
+      that curdled inward, made venom of his love?
+
+      For every cheer that hailed
+      Baldur rang like striking from a sword.
+
+      On the chains that bit his children,
+      far below, far above.'
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: Such it is that trickster gods love, and lovely gods trick.
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: So father killed Baldur for revenge against Odin?
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: According to this telling, yes.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: What other telling is there? The Asgardian lies?
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

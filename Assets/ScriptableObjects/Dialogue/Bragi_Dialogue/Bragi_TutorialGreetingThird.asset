@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: Bragi_TutorialGreetingThird
+  m_EditorClassIdentifier: 
+  Repeatable: 0
+  Lines:
+  - Text: "This runestone tells the tale of Halvdan who travelled to Miklag\xE5rd,
+      and his worship of Bragi, the Storyteller."
+    Speaker: {fileID: 11400000, guid: 6386bee0cce89a84f80df160c871f056, type: 2}
+  - Text: Bragi?
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: The Son of Lies discovers a runestone dedicated to the lord of poets, who
+      tells his story right now.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: "Oh, you\u2019re Bragi? You\u2019re telling my story?"
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: Indeed I am! I am most intrigued by one such as yourself, carrying the
+      essence of the chained wolf and the Queen of Helheim, Son and Daughter of Lies.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  IsVoiced: 0
+  VoiceEventName: 
+  VoiceParameterName: 
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

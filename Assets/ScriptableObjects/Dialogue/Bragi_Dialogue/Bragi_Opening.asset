@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: Bragi_Opening
+  m_EditorClassIdentifier: 
+  Repeatable: 0
+  Lines:
+  - Text: Harken to the tale of the Father of Lies. God of mischief and deceit. Born
+      of the giants.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Loki! Slayer of Baldur!
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: My beloved, why did you let this deed be done?
+    Speaker: {fileID: 11400000, guid: f4f22446a67128b49b991b6336d3fa9a, type: 2}
+  - Text: Were you driven by vengeance against the All-Father or by the love for
+      your children?
+    Speaker: {fileID: 11400000, guid: f4f22446a67128b49b991b6336d3fa9a, type: 2}
+  - Text: My love, you suffer yet my bowl is of finite depth. Let me try to save
+      you.
+    Speaker: {fileID: 11400000, guid: f4f22446a67128b49b991b6336d3fa9a, type: 2}
+  - Text: "Once more she leaves Loki\u2019s side, carrying the three tokens hung
+      from his neck."
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: A scale from the World Serpent, a tuft of fur from the chained wolf, and
+      a lock of hair from she who watches over the dead.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: "Slay Odin\u2019s guardian, then free me and free your father."
+    Speaker: {fileID: 11400000, guid: f4f22446a67128b49b991b6336d3fa9a, type: 2}
+  - Text: And so our tale begins; when yet another lie is born.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  IsVoiced: 1
+  VoiceEventName: event:/Dave/SFX/Ambience/Va
+  VoiceParameterName: Intro_Va
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []

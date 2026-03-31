@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4120e8d7cc4784ba80e7aeb2d6d58d, type: 3}
+  m_Name: Bragi_FirstBranchDone
+  m_EditorClassIdentifier: 
+  Repeatable: 0
+  Lines:
+  - Text: "The trial is complete, Bragi, what\u2019s next?"
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: Ah, excellently done. You fight with an excellent mix of ferociousness
+      and elegance, though perhaps you need a bit of work in deciding which form
+      to take at which opportunity.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Hm.
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: "Well, feel free to continue pondering; in the meanwhile, there\u2019s
+      another trial for you, face the other gate and it\u2019ll reveal itself in
+      time."
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  - Text: Does it have another one of those weird ravens?
+    Speaker: {fileID: 11400000, guid: 8b9b771dc2f105a40a7ee49c43e5d895, type: 2}
+  - Text: Ah, Huginn and Muninn, the eyes of Odin. Pay them no mind, for though they
+      are quite observant, they are no actual threat to you.
+    Speaker: {fileID: 11400000, guid: 221624e13721edf47a3982f9e2ec5bd5, type: 2}
+  OnFinished:
+    m_PersistentCalls:
+      m_Calls: []
