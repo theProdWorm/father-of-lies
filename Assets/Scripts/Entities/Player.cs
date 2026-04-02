@@ -32,9 +32,13 @@ namespace Entities
         private static readonly int SWITCH = Animator.StringToHash("switch");
         private static readonly int ATTACK_FLIP = Animator.StringToHash("attackFlip");
         private static readonly int SPEED = Animator.StringToHash("speed");
-
-        private static bool HEL_UNLOCKED;
-
+        
+#if UNITY_EDITOR
+        private static bool HEL_UNLOCKED = true;
+#else
+        private static bool HEL_UNLOCKED = false;
+#endif
+        
         public UnityEvent<int, int> OnHealthChanged;
         public UnityEvent<int, int> OnPotionChargesChanged;
         public UnityEvent OnPotionDrunk;
@@ -182,6 +186,7 @@ namespace Entities
             base.Awake();
 
             INSTANCE = this;
+            OnDeath.AddListener(_ => PlayerSpawner.DIED = true);
 
             _playerInput.SwitchCurrentActionMap("Dialogue");
             _playerInput.SwitchCurrentActionMap("UI");
@@ -201,14 +206,12 @@ namespace Entities
             if (StatsPersistence.HealthItemAmount > 0)
                 _potionCharges = StatsPersistence.HealthItemAmount;
 
-            SceneManager sceneManager = FindFirstObjectByType<SceneManager>();
-            if (sceneManager != null)
-                sceneManager.OnSceneLoaded.AddListener(() =>
-                {
-                    StatsPersistence.PlayerHealth = _currentHealth;
-                    StatsPersistence.HealthItemAmount = _potionCharges;
-                    StatsPersistence.IsFenrir = ActiveCharacter == Character.Fenrir;
-                });
+            SceneManager.OnSceneLoaded.AddListener(() =>
+            {
+                StatsPersistence.PlayerHealth = _currentHealth;
+                StatsPersistence.HealthItemAmount = _potionCharges;
+                StatsPersistence.IsFenrir = ActiveCharacter == Character.Fenrir;
+            });
 
             _rigidbody.maxAngularVelocity = 0;
 
@@ -879,7 +882,7 @@ namespace Entities
             instance.start();
 
             if (_aboveHole)
-                _waterStepVFX.Play();
+                _waterStepVFX.SendEvent("StartSplash");
             else
             {
                 _grassStepVFX.Play();

@@ -77,6 +77,8 @@ public class EncounterManager : MonoBehaviour
         }
     }
 
+    public void DisableEncounter() => _isEncounterCompleted = true;
+    
     public void StartEncounter()
     {
         if (_isEncounterActive || _isEncounterCompleted)

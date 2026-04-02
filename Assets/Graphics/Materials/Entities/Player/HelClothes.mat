@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HelClothes
-  m_Shader: {fileID: -6465566751694194690, guid: 9703b92a4d29fdb4eb9ef559d1cb43c8, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 55fe6fb6910133144875b3ffce6094d6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -163,6 +163,7 @@ Material:
     - _Camera_Position: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Edge_Color: {r: 1.447878, g: 1.490566, b: 0.5273229, a: 0}
+    - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Highlight_Camera_Influence: {r: 0, g: 0, b: 0.5, a: 0}
     - _Highlight_Color: {r: 1, g: 1, b: 1, a: 0}

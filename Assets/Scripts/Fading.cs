@@ -1,28 +1,30 @@
 using Audio;
 using System.Collections;
 using TMPro;
-using UI.Narration;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Fading : MonoBehaviour
 {
-    [SerializeField, Tooltip("Refers to wether the square should fade out at start or just be instantly transparent")]
+    [SerializeField, Tooltip("Refers to whether the square should fade out at start or just be instantly transparent")]
     private bool _fadeOut = true;
     [SerializeField]
     private Image _image;
     [SerializeField]
     private TMP_Text _text;
     [SerializeField]
-    private float speedIn = 1f;
+    private float _fadeInDuration = 1f;
     [SerializeField]
-    private float _speedOut = 1f;
+    private float _fadeOutDuration = 1f;
     [SerializeField]
-    private float _textWriteDelay = 0.2f;
+    private float _deathFadeInDuration = 3f;
+    [SerializeField]
+    private float _deathFadeOutDuration = 2f;
+    [SerializeField]
+    private float _textWriteDelay = 0.1f;
 
     [SerializeField] private bool _fadeAudio = true;
     
-    private float _t;
     private Color _textColor;
     private Coroutine _slowWriteRoutine;
 
@@ -40,56 +42,77 @@ public class Fading : MonoBehaviour
         }
     }
 
-    private bool _textWritten = false;
     public IEnumerator FadeIn(bool died)
     {
+        Debug.Log($"Died: {died}");
+        
         _image.gameObject.SetActive(true);
-        _t = 0;
-
-        while (_t <= 1)
+        float fadeDuration = died ? _deathFadeInDuration : _fadeInDuration;
+        float elapsedTime = 0;
+        while (elapsedTime <= fadeDuration)
         {
-            _t += Time.deltaTime * speedIn;
+            elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
-            _image.color = Color.Lerp(Color.clear, Color.black, _t);
-            //_text.color = Color.Lerp(Color.clear, _textColor, _t);
+            
+            float t = elapsedTime / fadeDuration;
+            
+            _image.color = Color.Lerp(Color.clear, Color.black, t);
             
             if (!_fadeAudio)
                 continue;
             
-            float volume = (1 - _t) * SettingsMenu.INSTANCE.MasterVolumeSlider.value;
+            float volume = (1 - t) * SettingsMenu.INSTANCE.MasterVolumeSlider.value;
             FMODEvents.INSTANCE.SetMasterVolume(volume);
         }
         _image.color = Color.black;
-
-        //while (_t >= 0)
-        //{
-        //    _t += Time.deltaTime * speedIn;
-        //    yield return new WaitForEndOfFrame();
-        //    _text.color = Color.Lerp(Color.clear, _textColor, _t);
-        //}
-        //_text.color = Color.clear;
 
         if (!died) 
             yield break;
         
         _slowWriteRoutine = StartCoroutine(SlowWriteText());
-
         while (_slowWriteRoutine != null)
             yield return null;
-
-        _image.gameObject.SetActive(true);
-        _t = 1;
-        yield return new WaitForSecondsRealtime(_textWriteDelay*3);
-        while (_t >= 0)
+        
+        yield return new WaitForSecondsRealtime(_textWriteDelay * 3);
+        
+        elapsedTime = 0;
+        while (elapsedTime <= _deathFadeOutDuration)
         {
-            _t -= Time.deltaTime * _speedOut;
-            yield return new WaitForEndOfFrame();
-            _text.color = Color.Lerp(Color.clear, _textColor, _t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+            
+            float t = elapsedTime / _deathFadeOutDuration;
+            
+            _text.color = Color.Lerp(_textColor, Color.clear, t);
         }
-        _text.color = Color.clear;
         _text.gameObject.SetActive(false);
     }
 
+    public IEnumerator FadeOut()
+    {
+        _image.gameObject.SetActive(true);
+        float elapsedTime = 0;
+
+        while (elapsedTime <= _fadeOutDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+            
+            float t = elapsedTime / _fadeOutDuration;
+            
+            _image.color = Color.Lerp(Color.black, Color.clear, t);
+            _text.color = Color.Lerp(_textColor, Color.clear, t);
+
+            if (!_fadeAudio) 
+                continue;
+            
+            float volume = t * SettingsMenu.INSTANCE.MasterVolumeSlider.value;
+            FMODEvents.INSTANCE.SetMasterVolume(volume);
+        }
+        _image.color = Color.clear;
+        _image.gameObject.SetActive(false);
+    }
+    
     private IEnumerator SlowWriteText()
     {
         string textToWrite = _text.text;
@@ -105,29 +128,7 @@ public class Fading : MonoBehaviour
             _text.text = text;
             yield return new WaitForSeconds(delay);
         }
-
+        
         _slowWriteRoutine = null;
-    }
-
-    public IEnumerator FadeOut()
-    {
-        _image.gameObject.SetActive(true);
-        _t = 1;
-
-        while (_t >= 0)
-        {
-            _t -= Time.deltaTime * _speedOut;
-            yield return new WaitForEndOfFrame();
-            _image.color = Color.Lerp(Color.clear, Color.black, _t);
-            _text.color = Color.Lerp(Color.clear, _textColor, _t);
-
-            if (!_fadeAudio)
-                continue;
-            
-            float volume = (1 - _t) * SettingsMenu.INSTANCE.MasterVolumeSlider.value;
-            FMODEvents.INSTANCE.SetMasterVolume(volume);
-        }
-        _image.color = Color.clear;
-        _image.gameObject.SetActive(false);
     }
 }

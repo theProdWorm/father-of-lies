@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    static Player PLAYER;
-    public UnityEvent OnSceneLoaded;
+    private static Player PLAYER;
+    public static readonly UnityEvent OnSceneLoaded = new();
 
     private Fading _fade;
 
@@ -19,12 +19,12 @@ public class SceneManager : MonoBehaviour
 
     private void Start()
     {
-        PLAYER = FindFirstObjectByType<Player>();
-        if (PLAYER)
-        {
-            OnSceneLoaded.AddListener(PLAYER.SetDashing);
-            PLAYER.OnDeath.AddListener(ReloadScene);
-        }
+        PLAYER = Player.INSTANCE;
+        if (!PLAYER)
+            return;
+        
+        OnSceneLoaded.AddListener(PLAYER.SetDashing);
+        PLAYER.OnDeath.AddListener(ReloadScene);
     }
 
     public void ReloadScene(Entity Why)
@@ -35,25 +35,25 @@ public class SceneManager : MonoBehaviour
 
     public void LoadScene(int sceneIndex)
     {
+        int currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+        if (currentScene != sceneIndex)
+            PlayerSpawner.ResetProgress();
+        
         OnSceneLoaded.Invoke();
         if (!_fade)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneIndex);
             return;
         }
-        ProgressPersistence _progressPersistence = FindFirstObjectByType<ProgressPersistence>();
-        if(_progressPersistence != null)
-            StartCoroutine(AfterFade(_fade.FadeIn(_progressPersistence.JustDied), sceneIndex, false));
-        else
-            StartCoroutine(AfterFade(_fade.FadeIn(false), sceneIndex, false));
-
+        
+        StartCoroutine(AfterFade(_fade.FadeIn(PlayerSpawner.DIED), sceneIndex, false));
     }
 
     public void LoadScene(string sceneName)
     {
         OnSceneLoaded.Invoke();
-        var temp = UnityEngine.SceneManagement.SceneUtility.GetBuildIndexByScenePath(sceneName);
-        LoadScene(temp);
+        int buildIndex = SceneUtility.GetBuildIndexByScenePath(sceneName);
+        LoadScene(buildIndex);
     }
 
     public void LoadSceneAsync(int sceneIndex)
@@ -62,59 +62,16 @@ public class SceneManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneIndex);
     }
 
-    public void LoadSceneAsync(string sceneName)
-    {
-        OnSceneLoaded.Invoke();
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
-    }
-
-    public void LoadSceneAdditive(int sceneIndex)
-    {
-        OnSceneLoaded.Invoke();
-        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
-    }
-
-    public void LoadSceneAdditive(string sceneName)
-    {
-        OnSceneLoaded.Invoke();
-        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
-    }
-
-    public void LoadSceneAdditiveAsync(int sceneIndex)
-    {
-        OnSceneLoaded.Invoke();
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
-    }
-
-    public void LoadSceneAdditiveAsync(string sceneName)
-    {
-        OnSceneLoaded.Invoke();
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-    }
-
-    public void UnloadSceneAsync(int sceneIndex)
-    {
-        OnSceneLoaded.Invoke();
-        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneIndex);
-    }
-
-    public void UnloadSceneAsync(string sceneName)
-    {
-        OnSceneLoaded.Invoke();
-        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneName);
-    }
-
     public void QuitGame() => Application.Quit();
 
     private IEnumerator AfterFade(IEnumerator func, int scene, bool quit)
     {
-        if (_fade != null)
+        if (_fade)
             yield return StartCoroutine(func);
 
         if (quit)
-            Application.Quit();
+            QuitGame();
         else
             UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
-        
     }
 }

@@ -4996,8 +4996,8 @@
     "m_ObjectId": "52a3b7e91b3145f09b6503430a475542",
     "m_Title": "Cel-Shading",
     "m_Position": {
-        "x": -5920.00048828125,
-        "y": -3405.60009765625
+        "x": -5920.0,
+        "y": -3405.0
     }
 }
 
@@ -5234,7 +5234,7 @@
     "m_ZTestMode": 4,
     "m_ZWriteControl": 1,
     "m_AlphaMode": 1,
-    "m_RenderFace": 0,
+    "m_RenderFace": 2,
     "m_AlphaClip": true,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
@@ -10259,8 +10259,8 @@
     "m_ObjectId": "c4c76468722048da8401f1c04904495b",
     "m_Title": "Size Correction",
     "m_Position": {
-        "x": -3069.60009765625,
-        "y": 176.000244140625
+        "x": -3069.0,
+        "y": 177.0
     }
 }
 
@@ -11880,8 +11880,8 @@
     "m_ObjectId": "f09ce8d30ed84bd0a479ac28a6a5f883",
     "m_Title": "Positioning",
     "m_Position": {
-        "x": -3860.000244140625,
-        "y": -592.0
+        "x": -3860.0,
+        "y": -591.0
     }
 }
 

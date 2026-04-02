@@ -6794,9 +6794,8 @@ MonoBehaviour:
   _materials:
   - {fileID: 2100000, guid: 6451619f451c1ae42af7bdc23e10df4e, type: 2}
   - {fileID: 2100000, guid: 109550ffa33d25440acc59dfa792d182, type: 2}
-  - {fileID: 2100000, guid: 674cde920ecf605429c6681f42fc9307, type: 2}
   - {fileID: 2100000, guid: e816f3e8cf2fa4448b8d45af0d7e39a2, type: 2}
-  - {fileID: 2100000, guid: 5b48a215a0517b54392f8474cac17a97, type: 2}
+  - {fileID: 2100000, guid: 49a1e67139b3690419015055b0fa4c2c, type: 2}
   _mask:
     serializedVersion: 2
     m_Bits: 16384
@@ -10794,6 +10793,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1485675412351806193, guid: cdc9eaa27329b3941a8f0d77a6a040a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5299936456847035337, guid: cdc9eaa27329b3941a8f0d77a6a040a9, type: 3}
+      propertyPath: m_ResetSeedOnPlay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5299936456847035337, guid: cdc9eaa27329b3941a8f0d77a6a040a9, type: 3}
+      propertyPath: m_InitialEventNameOverriden
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6431870454497103526, guid: cdc9eaa27329b3941a8f0d77a6a040a9, type: 3}

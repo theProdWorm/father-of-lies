@@ -125,7 +125,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 2502c9c6167f5e0488f2c32ad80bbe9f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 674cde920ecf605429c6681f42fc9307, type: 2}
+      objectReference: {fileID: 2100000, guid: 49a1e67139b3690419015055b0fa4c2c, type: 2}
     - target: {fileID: 919132149155446097, guid: 2502c9c6167f5e0488f2c32ad80bbe9f, type: 3}
       propertyPath: m_Name
       value: LowPolyTree2
@@ -220,7 +220,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: c6d9d269a8fcc9a40b704842e44f3161, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 674cde920ecf605429c6681f42fc9307, type: 2}
+      objectReference: {fileID: 2100000, guid: 49a1e67139b3690419015055b0fa4c2c, type: 2}
     - target: {fileID: 919132149155446097, guid: c6d9d269a8fcc9a40b704842e44f3161, type: 3}
       propertyPath: m_Name
       value: LowPolyTree
@@ -315,7 +315,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 4582e34bea4bc784e8608456f3fea9bd, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 674cde920ecf605429c6681f42fc9307, type: 2}
+      objectReference: {fileID: 2100000, guid: 49a1e67139b3690419015055b0fa4c2c, type: 2}
     - target: {fileID: 919132149155446097, guid: 4582e34bea4bc784e8608456f3fea9bd, type: 3}
       propertyPath: m_Name
       value: tree3
