@@ -1,4 +1,3 @@
-using Stats;
 using UnityEngine;
 
 namespace Abilities.Attacks
@@ -14,7 +13,7 @@ namespace Abilities.Attacks
 
         private void CreateExplosion()
         {
-            var stats = new AttackStats(_explosionPrefab, _stats);
+            var stats = new AttackStats(_explosionPrefab, _damage);
             Create(_owner, transform.position, transform.rotation, stats);
         }
     }

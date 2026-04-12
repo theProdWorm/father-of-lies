@@ -162,7 +162,7 @@ public class FollowCamera : MonoBehaviour
         
         // transform.rotation = targetRotation;
         _forcedLookAtCoroutine = null;
-        Player.INSTANCE.GainControl();
+        PlayerEntity.INSTANCE.GainControl();
         
         StopAllCoroutines();
     }
@@ -187,7 +187,7 @@ public class FollowCamera : MonoBehaviour
     
     public void ForceLookAt(ForceLookEvent forceLookEvent)
     {
-        Player.INSTANCE.LoseControl();
+        PlayerEntity.INSTANCE.LoseControl();
 
         _forcedLookAtCoroutine = StartCoroutine(ForceLookAtCoroutine(forceLookEvent));
         
@@ -196,7 +196,7 @@ public class FollowCamera : MonoBehaviour
 
     public void RegainControl()
     {
-        Player.INSTANCE.GainControl();
+        PlayerEntity.INSTANCE.GainControl();
     }
 
     private IEnumerator SafetyControlRegainRoutine()

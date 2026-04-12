@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    private static Player PLAYER;
+    private static PlayerEntity PLAYER;
 
     [SerializeField]
     private List<Transform> _reSpawnPoints = new();
@@ -15,7 +15,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void Start()
     {
-        PLAYER = Player.INSTANCE;
+        PLAYER = PlayerEntity.INSTANCE;
         
         if (DIED)
         {

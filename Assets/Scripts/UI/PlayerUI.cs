@@ -8,7 +8,7 @@ namespace UI
 {
     public class PlayerUI : MonoBehaviour
     {
-        private static Player _player;
+        private static PlayerEntity _player;
 
         [Header("Health")]
         [SerializeField] private Slider _healthBar;
@@ -44,7 +44,7 @@ namespace UI
         
         private void OnEnable()
         {
-            _player = Player.INSTANCE;
+            _player = PlayerEntity.INSTANCE;
             
             _player.OnHealthChanged.AddListener(UpdateHealthUI);
             _player.OnPotionChargesChanged.AddListener(UpdatePotionCharge);

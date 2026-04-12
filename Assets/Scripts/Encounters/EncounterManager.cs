@@ -9,7 +9,9 @@ public class EncounterManager : MonoBehaviour
     public UnityEvent _encounterStart;
     public UnityEvent _encounterEnd;
 
-    private static Player _player;
+    public static List<Entity> ALIVE_ENEMIES = new();
+
+    private static PlayerEntity _player;
     public enum EnemyTypes
     {
         Draugr,
@@ -56,7 +58,6 @@ public class EncounterManager : MonoBehaviour
     [SerializeField]
     private float _maxSpawnTime = .75f;
 
-    private List<Entity> _enemiesAlive = new();
     private float _currentAmountOfEnemiesAlive = 0;
     [Tooltip("Adds together the amount of enemies that were left over from last wave and the ones that spawn in the new wave")]
     private int _amountOfEnemiesThisWave = 0;
@@ -71,20 +72,20 @@ public class EncounterManager : MonoBehaviour
 
     private void OnDisable()
     {
-        foreach (Entity enemy in _enemiesAlive)
+        foreach (Entity enemy in ALIVE_ENEMIES)
         {
             enemy.OnDeath.RemoveListener(EnemyDied);
         }
     }
 
     public void DisableEncounter() => _isEncounterCompleted = true;
-    
+
     public void StartEncounter()
     {
         if (_isEncounterActive || _isEncounterCompleted)
             return;
         _isEncounterActive = true;
-        _player = FindFirstObjectByType<Player>();
+        _player = FindFirstObjectByType<PlayerEntity>();
         CloseDoors();
 
         if (_wave0 != null)
@@ -124,12 +125,10 @@ public class EncounterManager : MonoBehaviour
     private void EnemyDied(Entity enemy)
     {
         //TODO: Add a father enemy class and put that here instead of the test enemy
-        if (enemy is Enemy)
-        {
-            _enemiesAlive.Remove(enemy);
-            _currentAmountOfEnemiesAlive = _enemiesAlive.Count;
-            Debug.Log("Enemy died, " + _currentAmountOfEnemiesAlive + " enemies left alive");
-        }
+    
+        ALIVE_ENEMIES.Remove(enemy);
+        _currentAmountOfEnemiesAlive = ALIVE_ENEMIES.Count;
+        Debug.Log("Enemy died, " + _currentAmountOfEnemiesAlive + " enemies left alive");
     }
 
     private void NextWave()
@@ -137,7 +136,7 @@ public class EncounterManager : MonoBehaviour
         _timeSinceLastWave = 0;
         if (_currentWaveIndex >= _enemyWaves.Count - 1)
         {
-            if (_enemiesAlive.Count <= 0)
+            if (ALIVE_ENEMIES.Count <= 0)
             {
                 _isEncounterCompleted = true;
                 OpenDoors();
@@ -151,7 +150,7 @@ public class EncounterManager : MonoBehaviour
         _amountOfEnemiesThisWave = nextWaveEnemies.Count + (int)_currentAmountOfEnemiesAlive;
 
         StartCoroutine(SpawnWave(nextWaveEnemies));
-        _currentAmountOfEnemiesAlive = _enemiesAlive.Count;
+        _currentAmountOfEnemiesAlive = ALIVE_ENEMIES.Count;
 
         _currentWaveIndex++;
     }
@@ -203,7 +202,7 @@ public class EncounterManager : MonoBehaviour
             if (entity != null)
             {
                 entity.OnDeath.AddListener(EnemyDied);
-                _enemiesAlive.Add(entity);
+                ALIVE_ENEMIES.Add(entity);
             }
             else
             {
@@ -223,7 +222,7 @@ public class EncounterManager : MonoBehaviour
         {
             gate.GetComponent<Gateway>().Close();
         }
-        
+
         FMODEvents.INSTANCE.SetCombat(true);
     }
 

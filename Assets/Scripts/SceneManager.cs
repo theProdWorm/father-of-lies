@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    private static Player PLAYER;
+    private static PlayerEntity PLAYER;
     public static readonly UnityEvent OnSceneLoaded = new();
 
     private Fading _fade;
@@ -19,7 +19,7 @@ public class SceneManager : MonoBehaviour
 
     private void Start()
     {
-        PLAYER = Player.INSTANCE;
+        PLAYER = PlayerEntity.INSTANCE;
         if (!PLAYER)
             return;
         

@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
+using Abilities.Attacks;
 using Animation;
 using Audio;
 using Effects;
-using Stats;
 using StatusEffects;
 using StatusEffects.Effects;
 using UI;
@@ -80,7 +80,7 @@ namespace Entities
             _skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
             materials = _skinnedMeshRenderer.materials;
             if (!PLAYER)
-                PLAYER = Player.INSTANCE.gameObject;
+                PLAYER = PlayerEntity.INSTANCE.gameObject;
 
             AiAgent.SetVariableValue("Target", PLAYER);
             AiAgent.SetVariableValue("Animator", GetComponent<Animator>());
@@ -260,9 +260,9 @@ namespace Entities
                 return 0;
 
             if (HasStatusEffectOfType<StatusEffect_Frozen>() &&
-                attacker is Player player)
+                attacker is PlayerEntity player)
             {
-                if (player.ActiveCharacter == Player.Character.Fenrir)
+                if (player.ActiveCharacter == PlayerEntity.Character.Fenrir)
                 {
                     amount += player.ShatterBonusDamage;
                     RemoveAllStatusEffectsOfType<StatusEffect_Frozen>();

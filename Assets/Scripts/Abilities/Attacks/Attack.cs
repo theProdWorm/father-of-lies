@@ -15,33 +15,23 @@ namespace Abilities.Attacks
         [SerializeField] private float _damageMultiplier;
         [SerializeField] private float _knockbackForce;
 
-        private int _damage;
+        protected int _damage;
 
         protected AttackStats _stats;
 
         protected Entity _owner;
         protected string _hostileTag = "Player";
 
-        public static void Create(Entity owner, Vector3 position, Quaternion rotation, AttackStats stats)
+        public static void Create(GameObject prefab, Entity owner, Vector3 position, Quaternion rotation)
         {
-            var attackInstance = Instantiate(stats.Prefab, position, rotation).GetComponent<Attack>();
-
+            var attackInstance = Instantiate(prefab, position, rotation).GetComponent<Attack>();
             attackInstance.SetOwner(owner);
-            attackInstance.SetStats(stats);
         }
 
-        public static void Create(Entity owner, Transform parent, AttackStats stats)
+        public static void Create(GameObject prefab, Entity owner, Transform parent)
         {
-            var attackInstance = Instantiate(stats.Prefab, parent).GetComponent<Attack>();
-
+            var attackInstance = Instantiate(prefab, parent).GetComponent<Attack>();
             attackInstance.SetOwner(owner);
-            attackInstance.SetStats(stats);
-        }
-
-        private void SetStats(AttackStats stats)
-        {
-            _stats = stats;
-            _damage = Mathf.CeilToInt(_stats.Damage * _damageMultiplier);
         }
 
         private void SetOwner(Entity owner)
@@ -68,10 +58,7 @@ namespace Abilities.Attacks
             if (!isEntity)
                 return null;
 
-            bool crit = Random.Range(0f, 100f) <= _stats.CritChance;
-            int damage = Mathf.CeilToInt(_damage * (crit ? _stats.CritDamage : 1));
-
-            int realDamage = entity.TakeDamage(damage, _owner);
+            int realDamage = entity.TakeDamage(_damage, _owner);
 
             Vector3 knockbackDirection = (entity.transform.position - _owner.transform.position).normalized;
             entity.KnockBack(knockbackDirection, _knockbackForce, 0.1f);

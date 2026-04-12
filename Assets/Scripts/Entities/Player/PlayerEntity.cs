@@ -1,6 +1,5 @@
 ﻿using Abilities;
 using Abilities.Attacks;
-using Stats;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,35 +9,30 @@ using FMODUnity;
 using GameManager;
 using Gameplay;
 using Gameplay.Input;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using UnityEngine.VFX;
 
 namespace Entities
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Player : Entity
+    public class PlayerEntity : Entity
     {
-        public enum Character { Fenrir, Hel }
+        public static PlayerEntity INSTANCE;
 
-        public static Player INSTANCE;
+        protected static readonly int IS_MOVING = Animator.StringToHash("isMoving");
+        protected static readonly int DASH = Animator.StringToHash("dash");
+        protected static readonly int ATTACK = Animator.StringToHash("attack");
+        protected static readonly int SWITCH = Animator.StringToHash("switch");
+        protected static readonly int SPEED = Animator.StringToHash("speed");
 
-        private static readonly int IS_MOVING = Animator.StringToHash("isMoving");
-        private static readonly int DASH = Animator.StringToHash("dash");
-        private static readonly int ATTACK = Animator.StringToHash("attack");
-        private static readonly int SWITCH = Animator.StringToHash("switch");
-        private static readonly int ATTACK_FLIP = Animator.StringToHash("attackFlip");
-        private static readonly int SPEED = Animator.StringToHash("speed");
-        
 #if UNITY_EDITOR
-        private static bool HEL_UNLOCKED = true;
+        protected static bool HEL_UNLOCKED = true;
 #else
-        private static bool HEL_UNLOCKED = false;
+        protected static bool HEL_UNLOCKED = false;
 #endif
-        
+
         public UnityEvent<int, int> OnHealthChanged;
         public UnityEvent<int, int> OnPotionChargesChanged;
         public UnityEvent OnPotionDrunk;
@@ -103,38 +97,11 @@ namespace Entities
 
         [SerializeField] private LayerMask _dashingPlayerLayer;
 
-        [Header("Fenrir")]
-        [SerializeField] private CharacterAbilitySet _fenrirAbilities;
-        [SerializeField] private Animator _fenrirAnimator;
-        [SerializeField] private Transform _fenrirAttackPoint;
-        [SerializeField] private float _fenrirLungeForce;
-        [SerializeField] private float _fenrirLungeDuration;
+        [SerializeField] protected CharacterAbilitySet _abilities;
+        [SerializeField] protected Animator _animator;
+        [SerializeField] protected Transform _attackPoint;
 
-        [Header("Hel")]
-        [SerializeField] private CharacterAbilitySet _helAbilities;
-        [SerializeField] private Animator _helAnimator;
-        [SerializeField] private Transform _helAttackPoint;
-        [SerializeField] private float _helLungeForce;
-        [SerializeField] private float _helLungeDuration;
-
-        [Header("Freeze")]
-        [SerializeField] public int ShatterBonusDamage = 20;
-        [SerializeField] public float HelFreezeDamageMultiplier = 0.5f;
-
-        private Animator[] _animators;
-        private Animator CurrentAnimator => _animators[(int)ActiveCharacter];
-
-        public Character ActiveCharacter;
-
-        private AttackAbilityTracker[] _attackAbilityTrackers;
-        private AttackAbilityTracker[] _switchAbilityTrackers;
-        private AbilityTracker _dashAbilityTracker;
-        private AttackAbilityTracker AttackAbilityTracker => _attackAbilityTrackers[(int)ActiveCharacter];
-        private AttackAbilityTracker SwitchAbilityTracker => _switchAbilityTrackers[((int) ActiveCharacter + 1) % 2];
-
-        private Transform[] _attackPoints;
-
-        private Vector3 AttackPosition => _attackPoints[(int)ActiveCharacter].position;
+        protected AbilityTracker _dashAbilityTracker;
 
         private Ability _currentAbility;
         private int _currentAbilityUseTimes;
@@ -195,10 +162,7 @@ namespace Entities
 
         protected override void Start()
         {
-            if (StatsPersistence.IsFenrir)
-                ActiveCharacter = Character.Fenrir;
-            else
-                ActiveCharacter = Character.Hel;
+            base.Start();
 
             if (StatsPersistence.PlayerHealth > 0)
                 _currentHealth = StatsPersistence.PlayerHealth;
@@ -210,7 +174,6 @@ namespace Entities
             {
                 StatsPersistence.PlayerHealth = _currentHealth;
                 StatsPersistence.HealthItemAmount = _potionCharges;
-                StatsPersistence.IsFenrir = ActiveCharacter == Character.Fenrir;
             });
 
             _rigidbody.maxAngularVelocity = 0;
@@ -219,23 +182,12 @@ namespace Entities
 
             _inputBuffer = new(_inputBufferMargin);
 
-            _playerBaseStats = (PlayerBaseStats)EntityBaseStats;
-            InitializeBaseStats();
-
             _originalMoveSpeed = _moveSpeed;
             _originalDashDistance = Vector3.Distance(transform.position, _dashPoint.position);
 
             _dashSpeed = _originalDashDistance / _dashDuration;
 
             InitializeAbilityTrackers();
-            InitializeAttackPoints();
-            InitializeAnimators();
-
-            OnDamageDealt.AddListener((entity, chargeAmount) =>
-            {
-                if (ActiveCharacter == Character.Fenrir)
-                    AddPotionCharges(entity, chargeAmount);
-            });
 
             OnHealthChanged.AddListener((current, max) =>
                 FMODEvents.SetLowHealth((float)current / max <= _lowHealthThreshold));
@@ -267,45 +219,19 @@ namespace Entities
                 {
                     ActiveCharacter = (Character)((int)++ActiveCharacter % 2);
                     CharacterIndexChanged();
-                    
+
                     StartAttack(ability, action, SWITCH);
                 }),
                 new(_helAbilities.Switch, (ability, action) =>
                 {
                     ActiveCharacter = (Character)((int)++ActiveCharacter % 2);
                     CharacterIndexChanged();
-                    
+
                     StartAttack(ability, action, SWITCH);
                 })
             };
 
             _dashAbilityTracker = new(_dashAbility, () => PerformDash(_dashPoint.position, true));
-        }
-
-        private void InitializeAttackPoints()
-        {
-            _attackPoints = new[]
-            {
-                _fenrirAttackPoint,
-                _helAttackPoint
-            };
-        }
-
-        private void InitializeAnimators()
-        {
-            _animators = new[]
-            {
-                _fenrirAnimator,
-                _helAnimator
-            };
-        }
-
-        protected override void InitializeBaseStats()
-        {
-            base.InitializeBaseStats();
-
-            _critChance = _playerBaseStats.CritChance;
-            _critDamage = _playerBaseStats.CritDamage;
         }
 
         public void LoseControl() => _hasControl = false;
@@ -420,9 +346,9 @@ namespace Entities
             _lungeCoroutine = null;
         }
 
-        private Transform FindTarget()
+        private Vector3 FindTarget()
         {
-            var enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+            var enemies = EncounterManager.ALIVE_ENEMIES;
 
             List<float> distances = new();
             List<float> angles = new();
@@ -483,39 +409,8 @@ namespace Entities
                 targetIndex = i;
             }
 
-            var target = validEnemies[targetIndex].transform;
-
-            Debug.DrawLine(transform.position, target.position, Color.red);
-
-            return target;
-        }
-
-        private void StartAttack(Ability ability, int useTimes, int animatorHash)
-        {
-            LoseControl();
-            var target = FindTarget();
-
-            if (_useCameraDirection)
-            {
-                var cameraForward = _camera.transform.forward;
-                var downProjection = Vector3.Project(cameraForward, Vector3.up);
-
-                var forwardDirection = (cameraForward - downProjection).normalized;
-
-                _targetPos = target ? target.position : transform.position + forwardDirection * 10f;
-            }
-            else
-            {
-                _targetPos = target ? target.position : transform.position + transform.forward * 10f;
-            }
-            _targetPos.y = transform.position.y;
-
-            _currentAbility = ability;
-            _currentAbilityUseTimes = useTimes;
-
-            transform.LookAt(_targetPos);
-
-            CurrentAnimator.SetTrigger(animatorHash);
+            var targetPos = validEnemies[targetIndex].transform.position;
+            return targetPos;
         }
 
         public void PerformAttack(Transform attackPoint)
@@ -527,9 +422,7 @@ namespace Entities
 
             var attackStats = new AttackStats(
                 _currentAbility.AttackPrefab,
-                _damage,
-                _critChance,
-                _critDamage);
+                _damage);
 
             var position = attackPoint.position;
 
@@ -600,23 +493,6 @@ namespace Entities
             _lungeCoroutine = StartCoroutine(LungeFadeCoroutine(direction, _fenrirLungeForce, duration));
         }
 
-        private IEnumerator AttackCoroutine(AttackStats stats, int times, float delay, float spreadAngle,
-            Vector3 position)
-        {
-            float halfAngle = spreadAngle * (times - 1) * 0.5f;
-
-            for (int i = 0; i < times; i++)
-            {
-                float angle = spreadAngle * i - halfAngle;
-                Quaternion rotation = transform.rotation * Quaternion.AngleAxis(angle, Vector3.up);
-
-                Attack.Create(this, position, rotation, stats);
-
-                if (i != times - 1)
-                    yield return new WaitForSeconds(delay);
-            }
-        }
-
         private void PerformDash(Vector3 dashPoint, bool animate)
         {
             var sound = FMODEvents.INSTANCE._playerDash;
@@ -638,107 +514,6 @@ namespace Entities
 
                 dashPoint = transform.position + dashVector - collisionPointOffset;
             }
-
-            // LayerMask holeAndWall = _wallLayer | _holeLayer;
-            //
-            // var commands = new NativeArray<RaycastCommand>(1, Allocator.Persistent);
-            // var hits = new NativeArray<RaycastHit>(3, Allocator.Persistent);
-            // QueryParameters parameters =
-            //     new QueryParameters(holeAndWall, true, QueryTriggerInteraction.Ignore, true);
-            // commands[0] = new RaycastCommand(transform.position, dashVector.normalized, parameters,
-            //     distance);
-            // RaycastCommand.ScheduleBatch(commands, hits, 1, 3).Complete();
-            //
-            // hits.Sort(Comparer<RaycastHit>.Create((a, b) => a.distance.CompareTo(b.distance)));
-            //
-            // //int closestWall = -1;
-            // int firstHit = -1;
-            // int hitCount = 0;
-            // bool hitCollider = false;
-            // List<Vector3> hitPoints = new List<Vector3>();
-            // for (int i = 1; i < hits.Length; i++)
-            // {
-            //
-            //     if (hits[i].collider)
-            //     {
-            //         if (!hitCollider)
-            //         {
-            //             firstHit = i;
-            //             hitCollider = true;
-            //         }
-            //         hitPoints.Add(hits[i].point);
-            //         hitCount++;
-            //     }
-            //     else continue;
-            //     if (1 << hits[i].collider.gameObject.layer == _wallLayer)
-            //     {
-            //         //closestWall = i;
-            //         if (i % 2 == 0)
-            //         {
-            //             Debug.Log("Wall in hole");
-            //             dashPoint = hits[i - 1].point - collisionPointOffset;
-            //             goto coroutine;
-            //         }
-            //         dashPoint = hits[i].point - collisionPointOffset;
-            //         goto coroutine;
-            //     }
-            // }
-            //
-            // Debug.Log(hitCount);
-            //
-            // /*if (closestWall == 0)
-            // {
-            //     dashPoint = hits[0].point-collisionPointOffset;
-            //     goto coroutine;
-            // }*/
-            //
-            // if (firstHit == -1)
-            // {
-            //     goto coroutine;
-            // }
-            // if (hitCount == 3)
-            // {
-            //     dashPoint = hitPoints[hitCount - 1] - collisionPointOffset;
-            // }
-            // else if (hitCount == 2)
-            // {
-            //     dashPoint = hitPoints[hitCount - 1] + collisionPointOffset;
-            // }
-            // else if (hitCount == 1)
-            // {
-            //     Ray backRay = new(hitPoints[0] + dashVector.normalized * distance, -dashVector.normalized);
-            //     if (!hits[firstHit].collider.Raycast(backRay, out RaycastHit hit, 500))
-            //     {
-            //         dashPoint = hitPoints[0] - collisionPointOffset;
-            //         goto coroutine;
-            //     }
-            //     Vector3 holeBack = hit.point;
-            //     float holeDiameter = Vector3.Distance(hitPoints[0], holeBack);
-            //
-            //     if (holeDiameter > 300) goto coroutine;
-            //     float dashDistance = Vector3.Distance(hitPoints[0], dashPoint);
-            //     float fraction = dashDistance / holeDiameter;
-            //     Debug.LogWarning(fraction);
-            //     if (fraction > _dashHoleSnapFraction)
-            //     {
-            //         dashPoint = hit.point + collisionPointOffset;
-            //
-            //     }
-            //     else
-            //     {
-            //         dashPoint = hitPoints[0] - collisionPointOffset;
-            //         goto coroutine;
-            //     }
-            // }
-            //
-            // commands.Dispose();
-            // hits.Dispose();
-            //coroutine:
-            // if (Vector3.Distance(transform.position, dashPoint) < .5f)
-            // {
-            //     Debug.LogWarning("Skipped dash");
-            //     return;
-            // }
 
             if (_dashCoroutine != null)
             {
@@ -848,15 +623,6 @@ namespace Entities
             OnPotionChargesChanged?.Invoke(_potionCharges, _maxPotionCharges);
         }
 
-        public void SetActiveCharacter(Character character)
-        {
-            if (ActiveCharacter == character)
-                return;
-
-            ActiveCharacter = character;
-            CharacterIndexChanged();
-        }
-
         private void CharacterIndexChanged()
         {
             for (int i = 0; i < _characterContainer.childCount; i++)
@@ -960,13 +726,7 @@ namespace Entities
             _currentInteractable.Interacted();
         }
 
-        public void AttackInput(InputAction.CallbackContext context)
-        {
-            if (!context.performed)
-                return;
-
-            _inputBuffer.Add(AttackAbilityTracker.TryUse);
-        }
+        public abstract void AttackInput(InputAction.CallbackContext context);
 
         public void HealInput(InputAction.CallbackContext context)
         {
@@ -997,22 +757,7 @@ namespace Entities
             _inputBuffer.Add(_dashAbilityTracker.TryUse);
         }
 
-        public void SwitchInput(InputAction.CallbackContext context)
-        {
-            if (!context.performed || !HEL_UNLOCKED)
-                return;
-
-            _inputBuffer.Add(() =>
-            {
-                if (!SwitchAbilityTracker.TryUse())
-                    return false;
-
-                foreach (var tracker in _switchAbilityTrackers)
-                    tracker.Reset();
-
-                return true;
-            });
-        }
+        public abstract void SwitchInput(InputAction.CallbackContext context);
 
         #endregion
 

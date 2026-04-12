@@ -7,7 +7,7 @@ namespace Abilities.Attacks
     {
         private void Start()
         {
-            if (!Player.INSTANCE.FlipFenrirAttack) 
+            if (!PlayerEntity.INSTANCE.FlipFenrirAttack) 
                 return;
             
             transform.localScale = new Vector3(

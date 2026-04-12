@@ -27,7 +27,7 @@ namespace Animation
         
         private void Start()
         {
-            var player = FindFirstObjectByType<Player>();
+            var player = FindFirstObjectByType<PlayerEntity>();
             if(player){ player.OnHealthChanged.AddListener((current, max) => _playerHealthPercent = current / (float) max);}
             else Debug.LogWarning("No player found");
         }
