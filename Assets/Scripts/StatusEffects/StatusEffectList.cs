@@ -163,15 +163,15 @@ namespace StatusEffects
         
         public void Remove(StatusEffect effect)
         {
-            int i = 0;
-            for (; i < Count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 if (_effects[i] == effect)
+                {
+                    _effects[i].Remove(_enemy);
+                    _effects[i] = null;
                     break;
+                }
             }
-
-            _effects[i].Remove(_enemy);
-            _effects[i] = null;
             
             Rebuild();
             Count--;

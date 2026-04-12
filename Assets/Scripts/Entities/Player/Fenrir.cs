@@ -15,14 +15,14 @@ namespace Entities.Player
 
         public bool AttackFlip;
         
-        private void OnEnable()
+        protected override void OnEnable()
         {
             _playerEntity.OnDamageDealt.AddListener(_playerEntity.AddPotionCharges);
             
             // TODO: Use switch ability
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
             _playerEntity.OnDamageDealt.RemoveListener(_playerEntity.AddPotionCharges);
         }
@@ -45,11 +45,10 @@ namespace Entities.Player
 
         protected override void PerformAttack()
         {
-            GainControl();
 
             Attack.Create(_attackAbility.AttackPrefab, _playerEntity, _attackPoint);
             
-            FMODEvents.INSTANCE.PlayEvent(FMODEvents.INSTANCE._playerAttack, transform.position);
+            base.PerformAttack();
         }
 
         protected override void PrepareSwitch()

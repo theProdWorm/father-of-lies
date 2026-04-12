@@ -10,7 +10,7 @@ public class ProgressPersistence : MonoBehaviour
     
     private void Start()
     {
-        SceneManager.OnSceneLoaded.AddListener(Start);
+        SceneManager.OnSceneExit.AddListener(Start);
         
         var encounters = FindObjectsByType<EncounterManager>(FindObjectsSortMode.None);
         foreach (var encounter in encounters)

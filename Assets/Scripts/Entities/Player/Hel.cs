@@ -10,8 +10,7 @@ namespace Entities.Player
         {
             GainControl();
 
-            var pos = 
-            Attack.Create(_attackAbility.AttackPrefab, _playerEntity);
+            Attack.Create(_attackAbility.AttackPrefab, _playerEntity, _attackPoint.position, transform.rotation);
             
             FMODEvents.INSTANCE.PlayEvent(FMODEvents.INSTANCE._playerAttack, transform.position);
         }

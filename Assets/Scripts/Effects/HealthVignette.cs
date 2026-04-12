@@ -1,4 +1,5 @@
 using Entities;
+using Entities.Player;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;

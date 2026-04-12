@@ -1,5 +1,6 @@
 using Abilities;
 using Abilities.Attacks;
+using Audio;
 using UnityEngine;
 
 namespace Entities.Player
@@ -10,7 +11,8 @@ namespace Entities.Player
         
         [SerializeField] protected Ability _attackAbility;
         [SerializeField] protected Ability _switchAbility;
-        
+
+        [SerializeField] protected GameObject _model;
         [SerializeField] protected Animator _animator;
 
         [SerializeField] protected Transform _attackPoint;
@@ -24,30 +26,56 @@ namespace Entities.Player
         
         protected Entity _target;
         
+        public bool IsSwitchReady => _switchAbilityTracker.RemainingCooldownPercent <= 0;
+        public float SwitchCooldownPercent => _switchAbilityTracker.RemainingCooldownPercent;
+        
         protected virtual void Start()
         {
-            _playerEntity = GetComponent<PlayerEntity>();
+            _playerEntity = PlayerEntity.INSTANCE;
             
             _attackAbilityTracker = new(_attackAbility, PrepareAttack);
             _switchAbilityTracker = new(_switchAbility, PrepareSwitch);
         }
 
-        public void LoseControl() => _hasControl = false;
-        public void GainControl() => _hasControl = true;
+        protected virtual void OnEnable()
+        {
+            _model.SetActive(true);
+        }
+        
+        protected virtual void OnDisable()
+        {
+            _model.SetActive(false);
+        }
 
+        protected virtual void Update()
+        {
+            _attackAbilityTracker.Update();
+            _switchAbilityTracker.Update();
+        }
+        
         protected virtual void PrepareAttack()
         {
             _animator.SetTrigger(ATTACK);
             
-            LoseControl();
+            PlayerController.LoseControl();
             
             _target = FindTarget();
         }
+
+        protected virtual void PerformAttack()
+        {
+            PlayerController.GainControl();
+            FMODEvents.INSTANCE.PlayEvent(FMODEvents.INSTANCE._playerAttack, transform.position);
+        }
         
-        protected abstract void PerformAttack();
-        
-        protected abstract void PrepareSwitch();
-        protected abstract void PerformSwitch();
+        protected virtual void PrepareSwitch()
+        {
+        }
+
+        protected virtual void PerformSwitch()
+        {
+            
+        }
 
         protected abstract Entity FindTarget();
     }

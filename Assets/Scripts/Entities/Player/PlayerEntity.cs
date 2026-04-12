@@ -1,20 +1,16 @@
-﻿using Abilities;
-using Abilities.Attacks;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Abilities;
 using Audio;
 using Entities.Stats;
-using FMODUnity;
 using GameManager;
 using Gameplay;
-using Gameplay.Input;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
-namespace Entities
+namespace Entities.Player
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerEntity : Entity
@@ -27,34 +23,17 @@ namespace Entities
         protected static readonly int SWITCH = Animator.StringToHash("switch");
         protected static readonly int SPEED = Animator.StringToHash("speed");
 
-#if UNITY_EDITOR
-        protected static bool HEL_UNLOCKED = true;
-#else
-        protected static bool HEL_UNLOCKED = false;
-#endif
-
         public UnityEvent<int, int> OnHealthChanged;
         public UnityEvent<int, int> OnPotionChargesChanged;
         public UnityEvent OnPotionDrunk;
         public UnityEvent OnDashStarted;
         public UnityEvent OnDashFinished;
 
-        [SerializeField] private Transform _characterContainer;
-        [SerializeField] private PlayerInput _playerInput;
-
         [SerializeField] private float _invincibilityDuration;
-
-        [Tooltip("Amount of time (in seconds) in advance the player can press an input for it to count.")]
-        [SerializeField] private float _inputBufferMargin;
 
         [SerializeField] private float _lowHealthThreshold;
 
         [Header("Movement")]
-        [SerializeField] private float _animationLockMoveSpeedFadeDuration;
-        [SerializeField] private float _insideHoleSpeedMultiplier;
-
-        [SerializeField] private ParticleSystem _grassStepVFX;
-        [SerializeField] private VisualEffect _waterStepVFX;
 
         [Header("Target Lock")]
         [SerializeField] private float _targetLockAngle;
@@ -80,61 +59,16 @@ namespace Entities
         [SerializeField] private int _potionCost;
         [SerializeField] private int _maxPotionCharges;
 
-        [Header("Dash")]
-        [SerializeField] private Ability _dashAbility;
-
-        [SerializeField] private Transform _dashPoint;
-
-        [Range(0.02f, 0.5f)]
-        [SerializeField] private float _dashDuration;
-
-        [Range(0f, 1f), Tooltip("Fraction of dash duration to fade back to normal speed.")]
-        [SerializeField] private float _dashFade;
-
-        [Tooltip("The fraction cutoff for dashing OVER holes")]
-        [Range(0.5f, 1f)]
-        [SerializeField] private float _dashHoleSnapFraction;
-
-        [SerializeField] private LayerMask _dashingPlayerLayer;
-
         [SerializeField] protected CharacterAbilitySet _abilities;
         [SerializeField] protected Animator _animator;
         [SerializeField] protected Transform _attackPoint;
-
-        protected AbilityTracker _dashAbilityTracker;
-
-        private Ability _currentAbility;
-        private int _currentAbilityUseTimes;
-
-        private PlayerBaseStats _playerBaseStats;
-
+        
         private Camera _camera;
-
-        private Vector2 _moveInput;
-
-        private float _critChance;
-        private float _critDamage;
-
-        private float _damageReduction = 0f;
-
+        
         private int _potionCharges;
         private bool PotionReady => _potionCharges >= _potionCost;
 
-        private float _originalDashDistance;
-        private float _originalMoveSpeed;
-        private Coroutine _dashCoroutine;
-
         private Vector3 _targetPos;
-
-        private bool _deltaIsMoving;
-        private bool _deltaAboveHole;
-        private bool _isDashing;
-        private float _dashSpeed;
-
-        private bool _isMoving;
-
-        private bool _hasControl = true;
-        private float _controlLossDuration;
 
         private float _remainingInvincibilityDuration;
 
@@ -143,9 +77,7 @@ namespace Entities
 
         public bool FlipFenrirAttack;
 
-        private InputBuffer _inputBuffer;
-
-        private List<IInteractable> _interactables = new();
+        private readonly List<IInteractable> _interactables = new();
         private IInteractable _currentInteractable;
 
         protected override void Awake()
@@ -154,10 +86,6 @@ namespace Entities
 
             INSTANCE = this;
             OnDeath.AddListener(_ => PlayerSpawner.DIED = true);
-
-            _playerInput.SwitchCurrentActionMap("Dialogue");
-            _playerInput.SwitchCurrentActionMap("UI");
-            _playerInput.SwitchCurrentActionMap("Player");
         }
 
         protected override void Start()
@@ -170,7 +98,7 @@ namespace Entities
             if (StatsPersistence.HealthItemAmount > 0)
                 _potionCharges = StatsPersistence.HealthItemAmount;
 
-            SceneManager.OnSceneLoaded.AddListener(() =>
+            SceneManager.OnSceneExit.AddListener(() =>
             {
                 StatsPersistence.PlayerHealth = _currentHealth;
                 StatsPersistence.HealthItemAmount = _potionCharges;
@@ -179,16 +107,7 @@ namespace Entities
             _rigidbody.maxAngularVelocity = 0;
 
             _camera = Camera.main!;
-
-            _inputBuffer = new(_inputBufferMargin);
-
-            _originalMoveSpeed = _moveSpeed;
-            _originalDashDistance = Vector3.Distance(transform.position, _dashPoint.position);
-
-            _dashSpeed = _originalDashDistance / _dashDuration;
-
-            InitializeAbilityTrackers();
-
+            
             OnHealthChanged.AddListener((current, max) =>
                 FMODEvents.SetLowHealth((float)current / max <= _lowHealthThreshold));
 
@@ -198,92 +117,18 @@ namespace Entities
             CharacterIndexChanged();
         }
 
-        private void InitializeAbilityTrackers()
-        {
-            _attackAbilityTrackers = new AttackAbilityTracker[]
-            {
-                new(_fenrirAbilities.Attack, (ability, action) =>
-                {
-                    FlipFenrirAttack = !FlipFenrirAttack;
-                    _fenrirAnimator.SetBool(ATTACK_FLIP, FlipFenrirAttack);
-
-                    StartAttack(ability, action, ATTACK);
-                }),
-                new(_helAbilities.Attack, (ability, action) =>
-                    StartAttack(ability, action, ATTACK))
-            };
-
-            _switchAbilityTrackers = new AttackAbilityTracker[]
-            {
-                new(_fenrirAbilities.Switch, (ability, action) =>
-                {
-                    ActiveCharacter = (Character)((int)++ActiveCharacter % 2);
-                    CharacterIndexChanged();
-
-                    StartAttack(ability, action, SWITCH);
-                }),
-                new(_helAbilities.Switch, (ability, action) =>
-                {
-                    ActiveCharacter = (Character)((int)++ActiveCharacter % 2);
-                    CharacterIndexChanged();
-
-                    StartAttack(ability, action, SWITCH);
-                })
-            };
-
-            _dashAbilityTracker = new(_dashAbility, () => PerformDash(_dashPoint.position, true));
-        }
-
-        public void LoseControl() => _hasControl = false;
-        public void GainControl() => _hasControl = true;
-
-        public void SetDashing(bool isDashing) => _isDashing = isDashing;
-        public void SetDashing() => _isDashing = true;
-
-        public float GetSwitchCooldownPercent() => SwitchAbilityTracker.RemainingCooldownPercent;
-
         protected override void Update()
         {
             base.Update();
-            CurrentAnimator.SetFloat(SPEED, _aboveHole ? _insideHoleSpeedMultiplier : 1f);
+            CurrentAnimator.SetFloat(SPEED, AboveHole ? _insideHoleSpeedMultiplier : 1f);
 
-            _inputBuffer.Update();
-            if (_hasControl)
-                _inputBuffer.NextInput();
-
-            foreach (var attackAbilityTracker in _attackAbilityTrackers)
-                attackAbilityTracker.Update();
-            foreach (var switchAbilityTracker in _switchAbilityTrackers)
-                switchAbilityTracker.Update();
-
-            _dashAbilityTracker.Update();
-
-            if (!_hasControl && !_isDashing)
-            {
-                if (_animationLockMoveSpeedFadeDuration == 0)
-                {
-                    _moveSpeed = 0;
-                }
-                else
-                {
-                    float t = Mathf.Clamp01(_controlLossDuration / _animationLockMoveSpeedFadeDuration);
-                    _moveSpeed = Mathf.Lerp(_originalMoveSpeed, 0, t);
-                }
-            }
-            else if (!_isDashing)
-            {
-                _moveSpeed = _originalMoveSpeed;
-            }
+            
 
             MoveAndRotate();
 
             if (_interactables.Count > 0)
                 FindMainInteractable();
 
-            if (!_hasControl)
-                _controlLossDuration += Time.deltaTime;
-            else
-                _controlLossDuration = 0;
 
             if (_remainingInvincibilityDuration > 0)
                 _remainingInvincibilityDuration -= Time.deltaTime;
@@ -304,7 +149,7 @@ namespace Entities
                 Vector3 movementX = _moveInput.x * rightDirection;
                 Vector3 movementZ = _moveInput.y * forwardDirection;
 
-                float speed = _moveSpeed * (_aboveHole ? _insideHoleSpeedMultiplier : 1);
+                float speed = _moveSpeed * (AboveHole ? _insideHoleSpeedMultiplier : 1);
                 movement = speed * (movementX + movementZ).normalized;
             }
             else if (_isDashing)
@@ -325,7 +170,7 @@ namespace Entities
             _isMoving = movement.magnitude > 0.01f;
             CurrentAnimator.SetBool(IS_MOVING, _isMoving);
 
-            RumbleManager.PLAYER_MOVING_IN_WATER = _aboveHole && _isMoving;
+            RumbleManager.PLAYER_MOVING_IN_WATER = AboveHole && _isMoving;
         }
 
         private IEnumerator LungeFadeCoroutine(Vector3 direction, float originalForce, float duration)
@@ -344,135 +189,6 @@ namespace Entities
 
             _lungeForce = Vector3.zero;
             _lungeCoroutine = null;
-        }
-
-        private Vector3 FindTarget()
-        {
-            var enemies = EncounterManager.ALIVE_ENEMIES;
-
-            List<float> distances = new();
-            List<float> angles = new();
-
-            Vector3 forwardDirection;
-
-            if (_useCameraDirection)
-            {
-                var cameraForward = _camera.transform.forward;
-                var downProjection = Vector3.Project(cameraForward, Vector3.up);
-
-                forwardDirection = (cameraForward - downProjection).normalized;
-            }
-            else
-            {
-                forwardDirection = transform.forward;
-            }
-
-            var validEnemies = enemies.Where(enemy =>
-            {
-                if (!enemy.HasSpawned || enemy.IsDead)
-                    return false;
-
-                float distance = Vector3.Distance(enemy.transform.position, transform.position);
-                if (distance > _targetLockMaxDistance)
-                    return false;
-
-                Vector3 toVector = enemy.transform.position - transform.position;
-                float angle = Mathf.Abs(Vector3.Angle(forwardDirection, toVector));
-
-                if (angle > _targetLockAngle)
-                    return false;
-
-                distances.Add(distance);
-                angles.Add(angle);
-
-                return true;
-            }).ToArray();
-
-            if (validEnemies.Length == 0)
-                return null;
-
-            int targetIndex = 0;
-            float maxWeight = 0;
-            for (int i = 0; i < validEnemies.Length; i++)
-            {
-                float distanceWeight = _targetLockDistanceWeight *
-                                       (1 - Mathf.Clamp01(distances[i] / _targetLockMaxDistance));
-                float angleWeight = _targetLockAngleWeight *
-                                    (1 - Mathf.Clamp01(angles[i] / _targetLockAngle));
-
-                float weight = distanceWeight * angleWeight;
-
-                if (weight <= maxWeight)
-                    continue;
-
-                maxWeight = weight;
-                targetIndex = i;
-            }
-
-            var targetPos = validEnemies[targetIndex].transform.position;
-            return targetPos;
-        }
-
-        public void PerformAttack(Transform attackPoint)
-        {
-            GainControl();
-
-            if (!_currentAbility)
-                return;
-
-            var attackStats = new AttackStats(
-                _currentAbility.AttackPrefab,
-                _damage);
-
-            var position = attackPoint.position;
-
-            if (_currentAbility.Burst)
-                StartCoroutine(AttackCoroutine(attackStats, _currentAbilityUseTimes,
-                    _currentAbility.BurstDelay, _currentAbility.SpreadAngle, position));
-            else
-                Attack.Create(this, position, transform.rotation, attackStats);
-
-            string attackName = attackStats.Prefab.name.ToLower();
-            EventReference sound;
-
-            if (attackName.Contains("switch"))
-                sound = FMODEvents.INSTANCE._playerSwitchIn;
-            else
-                sound = FMODEvents.INSTANCE._playerAttack;
-
-            FMODEvents.INSTANCE.PlayEvent(sound, transform.position);
-        }
-
-        public void PerformAttackParented(Transform attackPoint)
-        {
-            GainControl();
-
-            if (!_currentAbility)
-                return;
-
-            var attackStats = new AttackStats(
-                _currentAbility.AttackPrefab,
-                _damage,
-                _critChance,
-                _critDamage);
-
-            var position = attackPoint.position;
-
-            if (_currentAbility.Burst)
-                StartCoroutine(AttackCoroutine(attackStats, _currentAbilityUseTimes,
-                    _currentAbility.BurstDelay, _currentAbility.SpreadAngle, position));
-            else
-                Attack.Create(this, attackPoint, attackStats);
-
-            string attackName = attackStats.Prefab.name.ToLower();
-            EventReference sound;
-
-            if (attackName.Contains("switch"))
-                sound = FMODEvents.INSTANCE._playerSwitchIn;
-            else
-                sound = FMODEvents.INSTANCE._playerAttack;
-
-            FMODEvents.INSTANCE.PlayEvent(sound, transform.position);
         }
 
         public void PerformAttackLunge()
@@ -644,10 +360,10 @@ namespace Entities
             var sound = FMODEvents.INSTANCE._playerFootstep;
             FMODEvents.INSTANCE.CreateEvent(sound, out var instance);
 
-            instance.setParameterByName("FloorType", _aboveHole ? 1 : 0);
+            instance.setParameterByName("FloorType", AboveHole ? 1 : 0);
             instance.start();
 
-            if (_aboveHole)
+            if (AboveHole)
                 _waterStepVFX.SendEvent("StartSplash");
             else
             {
@@ -710,11 +426,6 @@ namespace Entities
 
         #region Input
 
-        public void MoveInput(InputAction.CallbackContext context)
-        {
-            _moveInput = context.ReadValue<Vector2>();
-        }
-
         public void InteractInput(InputAction.CallbackContext context)
         {
             if (!_hasControl || !context.performed)
@@ -749,16 +460,6 @@ namespace Entities
             });
         }
 
-        public void DashInput(InputAction.CallbackContext context)
-        {
-            if (!context.performed)
-                return;
-
-            _inputBuffer.Add(_dashAbilityTracker.TryUse);
-        }
-
-        public abstract void SwitchInput(InputAction.CallbackContext context);
-
         #endregion
 
         protected override void Die()
@@ -779,9 +480,6 @@ namespace Entities
             }
             Destroy(_collider, 1);
             Destroy(this);
-
-            // var sound = FMODEvents.INSTANCE._playerDeath;
-            // FMODEvents.INSTANCE.PlayEvent(sound, transform.position);
         }
     }
 }

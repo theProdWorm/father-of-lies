@@ -4,6 +4,7 @@ using Abilities.Attacks;
 using Animation;
 using Audio;
 using Effects;
+using Entities.Player;
 using StatusEffects;
 using StatusEffects.Effects;
 using UI;
@@ -197,7 +198,7 @@ namespace Entities
                 .05f
             );
 
-            float speedMultiplier = _aboveHole ? _aboveHoleSpeedMultiplier : 1;
+            float speedMultiplier = AboveHole ? _aboveHoleSpeedMultiplier : 1;
             navAgent.speed = _moveSpeed * speedMultiplier;
             animator.SetFloat(MOVE_SPEED, _frozen ? 0 : _animationSpeed * speedMultiplier);
 

@@ -3,17 +3,11 @@ using System.Collections.Generic;
 
 namespace Gameplay.Input
 {
-    public class InputBuffer
+    public static class InputBuffer
     {
-        private readonly List<InputRecord> _buffer = new();
-        private readonly float _bufferMargin;
+        private static readonly List<InputRecord> _buffer = new();
         
-        public InputBuffer(float bufferMargin)
-        {
-            _bufferMargin = bufferMargin;
-        }
-
-        public void Update()
+        public static void Update()
         {
             for (int i = _buffer.Count - 1; i >= 0; i--)
             {
@@ -24,13 +18,13 @@ namespace Gameplay.Input
             }
         }
 
-        public void Add(Func<bool> callback)
+        public static void Add(Func<bool> callback, float duration)
         {
-            var input = new InputRecord(callback, _bufferMargin);
+            var input = new InputRecord(callback, duration);
             _buffer.Add(input);
         }
 
-        public void NextInput()
+        public static void NextInput()
         {
             if (_buffer.Count == 0)
                 return;

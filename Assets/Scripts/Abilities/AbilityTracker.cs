@@ -7,11 +7,11 @@ namespace Abilities
     public class AbilityTracker
     {
         private readonly Action _onAbilityUsed;
-        
-        protected readonly Ability _ability;
-        
-        protected float _remainingCooldown;
-        protected int   _remainingCharges;
+
+        private readonly Ability _ability;
+
+        private float _remainingCooldown;
+        private int   _remainingCharges;
 
         public float RemainingCooldownPercent => _remainingCooldown / _ability.RechargeTime;
         
@@ -20,13 +20,6 @@ namespace Abilities
             _ability = ability;
             
             _onAbilityUsed = onAbilityUsed;
-            
-            _remainingCharges = ability.MaxCharges;
-        }
-
-        protected AbilityTracker(Ability ability)
-        {
-            _ability = ability;
             
             _remainingCharges = ability.MaxCharges;
         }
@@ -59,7 +52,7 @@ namespace Abilities
             }
         }
 
-        public virtual bool TryUse()
+        public bool TryUse()
         {
             if (_remainingCharges == 0)
                 return false;

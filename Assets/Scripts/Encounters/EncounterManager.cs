@@ -1,6 +1,7 @@
 using Entities;
 using System.Collections.Generic;
 using Audio;
+using Entities.Player;
 using UnityEngine;
 using UnityEngine.Events;
 

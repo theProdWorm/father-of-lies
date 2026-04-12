@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using FMOD.Studio;
 using Audio;
 using Entities;
+using Entities.Player;
 
 namespace UI.Narration
 {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Entities;
+using Entities.Player;
 
 namespace Abilities.Attacks
 {

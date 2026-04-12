@@ -1,5 +1,6 @@
 using Entities;
 using System.Collections;
+using Entities.Player;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -7,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class SceneManager : MonoBehaviour
 {
     private static PlayerEntity PLAYER;
-    public static readonly UnityEvent OnSceneLoaded = new();
+    public static readonly UnityEvent OnSceneExit = new();
 
     private Fading _fade;
 
@@ -23,7 +24,7 @@ public class SceneManager : MonoBehaviour
         if (!PLAYER)
             return;
         
-        OnSceneLoaded.AddListener(PLAYER.SetDashing);
+        OnSceneExit.AddListener(PLAYER.SetDashing);
         PLAYER.OnDeath.AddListener(ReloadScene);
     }
 
@@ -39,7 +40,7 @@ public class SceneManager : MonoBehaviour
         if (currentScene != sceneIndex)
             PlayerSpawner.ResetProgress();
         
-        OnSceneLoaded.Invoke();
+        OnSceneExit.Invoke();
         if (!_fade)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneIndex);
@@ -51,14 +52,14 @@ public class SceneManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        OnSceneLoaded.Invoke();
+        OnSceneExit.Invoke();
         int buildIndex = SceneUtility.GetBuildIndexByScenePath(sceneName);
         LoadScene(buildIndex);
     }
 
     public void LoadSceneAsync(int sceneIndex)
     {
-        OnSceneLoaded.Invoke();
+        OnSceneExit.Invoke();
         UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneIndex);
     }
 
