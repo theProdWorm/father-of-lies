@@ -33,7 +33,6 @@ namespace Entities
         private BehaviorGraphAgent AiAgent;
         private BlackboardVariable<ChargePrep> ChargePrepEventChannel;
         private NavMeshAgent navAgent;
-        private AttackStats attackStats;
         private bool ragdollActive;
         private float ragdollTimeLeft;
         private float dissolveTimeLeft;
@@ -87,7 +86,6 @@ namespace Entities
             AiAgent.SetVariableValue("Animator", GetComponent<Animator>());
             AiAgent.Start();
             navAgent.speed = _moveSpeed;
-            attackStats = new AttackStats(attackPrefab, _damage, 0, 0);
 
             _healthBar = GetComponentInChildren<UIEnemyHealth>();
             _healthBar.UpdateHealthUI(_currentHealth, _maxHealth);
@@ -128,11 +126,11 @@ namespace Entities
         {
             if (type == EncounterManager.EnemyTypes.BirdOnBird)
             {
-                attackStats.Prefab.GetComponent<HomingProjectileAttack>().target = PLAYER.transform;
-                Abilities.Attacks.Attack.Create(this, attackPoint.position, Quaternion.LookRotation(PLAYER.transform.position - transform.position), attackStats);
+                attackPrefab.GetComponent<HomingProjectileAttack>().target = PLAYER.transform;
+                Abilities.Attacks.Attack.Create(attackPrefab, this, attackPoint.position, Quaternion.LookRotation(PLAYER.transform.position - transform.position));
             }
             else
-                Abilities.Attacks.Attack.Create(this, attackPoint.position, transform.rotation, attackStats);
+                Abilities.Attacks.Attack.Create(attackPrefab, this, attackPoint.position, transform.rotation);
 
             var sound = type switch
             {
@@ -263,14 +261,14 @@ namespace Entities
             if (HasStatusEffectOfType<StatusEffect_Frozen>() &&
                 attacker is PlayerEntity player)
             {
-                if (player.ActiveCharacter == PlayerEntity.Character.Fenrir)
+                if (PlayerController.IS_FENRIR)
                 {
-                    amount += player.ShatterBonusDamage;
+                    amount += Fenrir.SHATTER_DAMAGE;
                     RemoveAllStatusEffectsOfType<StatusEffect_Frozen>();
                 }
                 else
                 {
-                    amount = Mathf.CeilToInt(amount * player.HelFreezeDamageMultiplier);
+                    amount = Mathf.CeilToInt(amount * Hel.FREEZE_DAMAGE_MULTIPLIER);
                 }
             }
 

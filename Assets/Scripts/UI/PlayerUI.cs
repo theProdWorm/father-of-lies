@@ -59,7 +59,7 @@ namespace UI
 
         private void Update()
         {
-            float switchCooldownPercent = Mathf.Clamp01(1 - _player.GetSwitchCooldownPercent());
+            float switchCooldownPercent = Mathf.Clamp01(1 - PlayerController.SwitchCooldownPercent);
             _switchBar.value = switchCooldownPercent;
 
             bool switchReady = Mathf.Approximately(switchCooldownPercent, 1);

@@ -13,8 +13,7 @@ namespace Abilities.Attacks
 
         private void CreateExplosion()
         {
-            var stats = new AttackStats(_explosionPrefab, _damage);
-            Create(_owner, transform.position, transform.rotation, stats);
+            Create(_explosionPrefab, _owner, transform.position, transform.rotation);
         }
     }
 }

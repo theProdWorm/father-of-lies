@@ -44,9 +44,9 @@ public class PlayerSpawner : MonoBehaviour
         PLAYER.transform.position = spawnPos;
         PLAYER.transform.rotation = spawnPoint.rotation;
 
-        PLAYER.SetDashing(true);
+        PlayerMovement.SetDashing(true);
         yield return new WaitForSecondsRealtime(1);
-        PLAYER.SetDashing(false);
+        PlayerMovement.SetDashing(false);
     }
 
     public static void Proceed() => RESPAWN_INDEX++;

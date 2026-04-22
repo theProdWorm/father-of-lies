@@ -1,9 +1,6 @@
-using System;
 using Entities;
-using Stats;
 using UnityEngine;
 using UnityEngine.Events;
-using Random = UnityEngine.Random;
 
 namespace Abilities.Attacks
 {
@@ -12,12 +9,8 @@ namespace Abilities.Attacks
         public UnityEvent<Entity, int> OnHitEntity;
         public UnityEvent OnAttackFinished;
 
-        [SerializeField] private float _damageMultiplier;
+        [SerializeField] private int _damage;
         [SerializeField] private float _knockbackForce;
-
-        protected int _damage;
-
-        protected AttackStats _stats;
 
         protected Entity _owner;
         protected string _hostileTag = "Player";

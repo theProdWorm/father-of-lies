@@ -24,7 +24,7 @@ public class SceneManager : MonoBehaviour
         if (!PLAYER)
             return;
         
-        OnSceneExit.AddListener(PLAYER.SetDashing);
+        OnSceneExit.AddListener(PlayerMovement.SetDashing);
         PLAYER.OnDeath.AddListener(ReloadScene);
     }
 

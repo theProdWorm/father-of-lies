@@ -1,5 +1,4 @@
 using UnityEngine;
-using Entities;
 using Entities.Player;
 
 namespace Abilities.Attacks
@@ -8,7 +7,7 @@ namespace Abilities.Attacks
     {
         private void Start()
         {
-            if (!PlayerEntity.INSTANCE.FlipFenrirAttack) 
+            if (!Fenrir.FLIP_ATTACK)
                 return;
             
             transform.localScale = new Vector3(

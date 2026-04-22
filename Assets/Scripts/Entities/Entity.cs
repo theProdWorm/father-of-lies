@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using Entities.Stats;
-using StatusEffects;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,26 +14,21 @@ namespace Entities
         public UnityEvent<int> OnDamageTaken;
         public UnityEvent<Entity, int> OnDamageDealt;
         
-        protected int _baseMaxHealth;
-        protected float _baseMoveSpeed;
-
         protected float _speedMultiplier = 1f;
+        private float _baseMoveSpeed;
         
         protected int _maxHealth;
-        protected int _damage;
         protected float _moveSpeed;
         
         protected int _currentHealth;
         
-        protected float _damageTakenMultiplier = 1f;
-
         protected Vector3 _knockbackForce;
         protected Coroutine _knockbackCoroutine;
         
-        public bool IsDead;
+        [HideInInspector] public bool IsDead;
 
-        protected LayerMask _holeLayer;
-        public bool AboveHole;
+        private LayerMask _holeLayer;
+        [HideInInspector] public bool AboveHole;
 
         protected virtual void Awake()
         {
@@ -55,28 +47,24 @@ namespace Entities
 
         protected virtual void InitializeBaseStats()
         {
-            _baseMaxHealth = EntityBaseStats.MaxHealth;
-            _maxHealth = _baseMaxHealth;
-            
-            _damage = EntityBaseStats.Damage;
+            _maxHealth = EntityBaseStats.MaxHealth;
             
             _baseMoveSpeed = EntityBaseStats.MoveSpeed;
             _moveSpeed = _baseMoveSpeed;
             
-            _currentHealth = _baseMaxHealth;
+            _currentHealth = _maxHealth;
         }
         
         public virtual int TakeDamage(int amount, Entity attacker)
         {
-            int realDamage = Mathf.CeilToInt(amount * _damageTakenMultiplier);
-            _currentHealth -= realDamage;
+            _currentHealth -= amount;
             
-            OnDamageTaken?.Invoke(realDamage);
+            OnDamageTaken?.Invoke(amount);
             
             if (_currentHealth <= 0)
                 Die();
             
-            return realDamage;
+            return amount;
         }
 
         public virtual void Heal(int amount)

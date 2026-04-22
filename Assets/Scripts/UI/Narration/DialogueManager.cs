@@ -115,9 +115,9 @@ namespace UI.Narration
             INSTANCE._speakerImage.sprite = speaker.Sprite;
 
             if (speaker.name == "Daughter of Lies")
-                PlayerEntity.INSTANCE.SetActiveCharacter(PlayerEntity.Character.Hel);
+                PlayerController.SetActiveCharacter(false);
             else if (speaker.name == "Son of Lies")
-                PlayerEntity.INSTANCE.SetActiveCharacter(PlayerEntity.Character.Fenrir);
+                PlayerController.SetActiveCharacter(true);
         }
 
         private static float GetLetterDelay(char targetChar)
