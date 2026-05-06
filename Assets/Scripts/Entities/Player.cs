@@ -63,11 +63,11 @@ namespace Entities
         [SerializeField] private VisualEffect _waterStepVFX;
 
         [Header("Target Lock")]
-        [SerializeField] private float _targetLockAngle;
+        [SerializeField] private float _fenrirPriorityConeHalfAngle;
+        [SerializeField] private bool  _allowTargetsOutsidePriorityCone = true;
 
-        [SerializeField] private float _targetLockMaxDistance;
-        [SerializeField] private float _targetLockAngleWeight;
-        [SerializeField] private float _targetLockDistanceWeight;
+        [SerializeField] private float _fenrirTargetLockAngleWeight;
+        [SerializeField] private float _fenrirTargetLockDistanceWeight;
 
         [SerializeField] private bool _useCameraDirection = true;
 
@@ -173,6 +173,10 @@ namespace Entities
 
         private Coroutine _lungeCoroutine;
         private Vector3 _lungeForce;
+
+        private float FenrirAttackRange => 
+            0.75f * _fenrirLungeForce * _fenrirLungeDuration 
+            + Vector3.Distance(transform.position, _fenrirAttackPoint.position);
 
         public bool FlipFenrirAttack;
 
@@ -420,74 +424,23 @@ namespace Entities
             _lungeCoroutine = null;
         }
 
-        private Transform FindTarget()
+        private Transform FindTarget() => 
+            ActiveCharacter == Character.Fenrir ? FindTargetFenrir() : FindTargetHel();
+
+        private Transform FindTargetFenrir()
         {
-            var enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+            var enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None)
+                .Where(enemy => enemy.HasSpawned)
+                .Where(enemy => Vector3.Distance(transform.position, enemy.transform.position) < FenrirAttackRange);
+            
+            
+            
+            return null;
+        }
 
-            List<float> distances = new();
-            List<float> angles = new();
-
-            Vector3 forwardDirection;
-
-            if (_useCameraDirection)
-            {
-                var cameraForward = _camera.transform.forward;
-                var downProjection = Vector3.Project(cameraForward, Vector3.up);
-
-                forwardDirection = (cameraForward - downProjection).normalized;
-            }
-            else
-            {
-                forwardDirection = transform.forward;
-            }
-
-            var validEnemies = enemies.Where(enemy =>
-            {
-                if (!enemy.HasSpawned || enemy.IsDead)
-                    return false;
-
-                float distance = Vector3.Distance(enemy.transform.position, transform.position);
-                if (distance > _targetLockMaxDistance)
-                    return false;
-
-                Vector3 toVector = enemy.transform.position - transform.position;
-                float angle = Mathf.Abs(Vector3.Angle(forwardDirection, toVector));
-
-                if (angle > _targetLockAngle)
-                    return false;
-
-                distances.Add(distance);
-                angles.Add(angle);
-
-                return true;
-            }).ToArray();
-
-            if (validEnemies.Length == 0)
-                return null;
-
-            int targetIndex = 0;
-            float maxWeight = 0;
-            for (int i = 0; i < validEnemies.Length; i++)
-            {
-                float distanceWeight = _targetLockDistanceWeight *
-                                       (1 - Mathf.Clamp01(distances[i] / _targetLockMaxDistance));
-                float angleWeight = _targetLockAngleWeight *
-                                    (1 - Mathf.Clamp01(angles[i] / _targetLockAngle));
-
-                float weight = distanceWeight * angleWeight;
-
-                if (weight <= maxWeight)
-                    continue;
-
-                maxWeight = weight;
-                targetIndex = i;
-            }
-
-            var target = validEnemies[targetIndex].transform;
-
-            Debug.DrawLine(transform.position, target.position, Color.red);
-
-            return target;
+        private Transform FindTargetHel()
+        {
+            return null;
         }
 
         private void StartAttack(Ability ability, int useTimes, int animatorHash)
