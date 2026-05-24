@@ -79,6 +79,12 @@ namespace Entities
             animator = GetComponent<Animator>();
             _skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
             materials = _skinnedMeshRenderer.materials;
+            var bounds = _skinnedMeshRenderer.sharedMesh.bounds;
+            var height = bounds.size.y * transform.lossyScale.y;
+            var minY = transform.position.y + bounds.min.y * transform.lossyScale.y;
+            var maxY = minY + height;
+            materials[0].SetFloat("_MinY", minY);
+            materials[0].SetFloat("_MaxY", maxY);
             if (!PLAYER)
                 PLAYER = Player.INSTANCE.gameObject;
 

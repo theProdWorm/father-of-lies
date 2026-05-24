@@ -59,6 +59,8 @@ Material:
     - _Edge_Width: 0.4
     - _Highlight_Size: 0.1
     - _Highlight_Strength: 0.1
+    - _MaxY: 7
+    - _MinY: 0
     - _Noise_Scale: 340
     - _Noise_Strength: 1
     - _QueueControl: 0
