@@ -4476,7 +4476,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 79fe276b05d0b414982b86c48ddcc0de, type: 2}
     - target: {fileID: 307890764919403406, guid: 2b44bc1ad9d4a4880af324c8fa92f767, type: 3}
       propertyPath: Enemies.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 307890764919403406, guid: 2b44bc1ad9d4a4880af324c8fa92f767, type: 3}
       propertyPath: 'Enemies.Array.data[0]'
@@ -6680,7 +6680,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e816f3e8cf2fa4448b8d45af0d7e39a2, type: 2}
     - target: {fileID: 7434728172668934076, guid: 2b44bc1ad9d4a4880af324c8fa92f767, type: 3}
       propertyPath: Enemies.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7434728172668934076, guid: 2b44bc1ad9d4a4880af324c8fa92f767, type: 3}
       propertyPath: 'Enemies.Array.data[3]'
@@ -7392,7 +7392,7 @@ PrefabInstance:
       objectReference: {fileID: 1889522520}
     - target: {fileID: 9104400578989589687, guid: 2b44bc1ad9d4a4880af324c8fa92f767, type: 3}
       propertyPath: _encounterEnd.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9104400578989589687, guid: 2b44bc1ad9d4a4880af324c8fa92f767, type: 3}
       propertyPath: _encounterEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -53781,6 +53781,34 @@ PrefabInstance:
       propertyPath: '_draugrSpawnPoints.Array.data[12]'
       value: 
       objectReference: {fileID: 4820385561004420437, guid: 2b44bc1ad9d4a4880af324c8fa92f767, type: 3}
+    - target: {fileID: 5448028266526155889, guid: a95636678c3dddd40bae9701ea7ce26a, type: 3}
+      propertyPath: _encounterEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448028266526155889, guid: a95636678c3dddd40bae9701ea7ce26a, type: 3}
+      propertyPath: _encounterEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448028266526155889, guid: a95636678c3dddd40bae9701ea7ce26a, type: 3}
+      propertyPath: _encounterEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5186477986562414505}
+    - target: {fileID: 5448028266526155889, guid: a95636678c3dddd40bae9701ea7ce26a, type: 3}
+      propertyPath: _encounterEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448028266526155889, guid: a95636678c3dddd40bae9701ea7ce26a, type: 3}
+      propertyPath: _encounterEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Proceed
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448028266526155889, guid: a95636678c3dddd40bae9701ea7ce26a, type: 3}
+      propertyPath: _encounterEnd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerSpawner, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448028266526155889, guid: a95636678c3dddd40bae9701ea7ce26a, type: 3}
+      propertyPath: _encounterEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -125506,6 +125534,7 @@ GameObject:
   - component: {fileID: 2106265432}
   - component: {fileID: 2106265431}
   - component: {fileID: 2106265430}
+  - component: {fileID: 2106265434}
   m_Layer: 0
   m_Name: Entrance (1)
   m_TagString: Untagged
@@ -125548,6 +125577,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Hub
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2106265434}
+        m_TargetAssemblyTypeName: GameManager.Unlocker, Assembly-CSharp
+        m_MethodName: CompleteSecondBranch
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -125642,6 +125683,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106265428}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2106265434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106265428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31ff405c16c45f7942c992fbbd805ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager.Unlocker
 --- !u!1001 &2108327473
 PrefabInstance:
   m_ObjectHideFlags: 0

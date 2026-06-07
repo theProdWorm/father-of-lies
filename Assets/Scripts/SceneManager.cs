@@ -15,6 +15,7 @@ public class SceneManager : MonoBehaviour
     {
         _fade = FindFirstObjectByType<Fading>();
         if (!_fade) Debug.LogWarning("No fade found");
+        OnSceneLoaded.RemoveAllListeners();
     }
 
     private void Start()
